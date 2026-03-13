@@ -7,16 +7,18 @@ import AffiliateButton from '../components/AffiliateButton';
 import ReadingProgress from '../components/ReadingProgress';
 import TableOfContents from '../components/TableOfContents';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { bestUnder200 } from '../data/watches';
 
 export default function BestOfPage() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   useScrollReveal();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = '7 Best Watches Under $200 in 2026 - WatchVault';
+    document.title = '7 Best Watches Under $200 in 2026 - WristNerd';
   }, []);
 
   const tocItems = [
@@ -100,18 +102,18 @@ export default function BestOfPage() {
           {/* Quick Comparison Table */}
           <section id="quick-comparison" className="mb-12 scroll-reveal">
             <h2 className="font-playfair text-2xl font-bold mb-6">
-              Quick <span className="text-gold">Comparison</span>
+              {t.bestOf.quickComparison} <span className="text-gold">{t.bestOf.quickComparisonHighlight}</span>
             </h2>
             <div className={`rounded-xl border overflow-x-auto ${theme === 'dark' ? 'border-dark-border' : 'border-light-border'}`}>
               <table className="w-full text-sm">
                 <thead>
                   <tr className={theme === 'dark' ? 'bg-dark-secondary' : 'bg-light-secondary'}>
                     <th className="px-4 py-3 text-left">#</th>
-                    <th className="px-4 py-3 text-left">Watch</th>
-                    <th className="px-4 py-3 text-left">Best For</th>
-                    <th className="px-4 py-3 text-center">Rating</th>
-                    <th className="px-4 py-3 text-right">Price</th>
-                    <th className="px-4 py-3 text-center">Buy</th>
+                    <th className="px-4 py-3 text-left">{t.bestOf.watch}</th>
+                    <th className="px-4 py-3 text-left">{t.bestOf.bestFor}</th>
+                    <th className="px-4 py-3 text-center">{t.bestOf.rating}</th>
+                    <th className="px-4 py-3 text-right">{t.bestOf.price}</th>
+                    <th className="px-4 py-3 text-center">{t.bestOf.buy}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -150,7 +152,7 @@ export default function BestOfPage() {
                           rel="nofollow sponsored"
                           className="inline-flex items-center gap-1 bg-gold hover:bg-gold-light text-dark text-xs font-bold px-3 py-1.5 rounded transition-colors"
                         >
-                          Buy <ExternalLink className="w-3 h-3" />
+                          {t.bestOf.buy} <ExternalLink className="w-3 h-3" />
                         </a>
                       </td>
                     </tr>
@@ -201,7 +203,7 @@ export default function BestOfPage() {
                       </p>
 
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-green-400 mb-2">Pros</h4>
+                        <h4 className="text-sm font-semibold text-green-400 mb-2">{t.review.pros}</h4>
                         <ul className="space-y-1">
                           {watch.pros.map((pro, i) => (
                             <li key={i} className={`text-sm flex items-start gap-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -213,7 +215,7 @@ export default function BestOfPage() {
                       </div>
 
                       <div className="mb-6">
-                        <h4 className="text-sm font-semibold text-red-400 mb-2">Cons</h4>
+                        <h4 className="text-sm font-semibold text-red-400 mb-2">{t.review.cons}</h4>
                         <ul className="space-y-1">
                           {watch.cons.map((con, i) => (
                             <li key={i} className={`text-sm flex items-start gap-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -225,13 +227,13 @@ export default function BestOfPage() {
                       </div>
 
                       <div className="flex gap-3">
-                        <AffiliateButton url={watch.affiliateUrl} text="Check Price on Amazon" size="sm" />
+                        <AffiliateButton url={watch.affiliateUrl} text={t.bestOf.checkPriceAmazon} size="sm" />
                         {watch.slug && (
                           <Link
                             to={`/review/${watch.slug}`}
                             className={`inline-flex items-center gap-1 font-semibold px-4 py-2 rounded-lg border-2 border-gold text-gold hover:bg-gold hover:text-dark transition-colors text-sm`}
                           >
-                            Full Review
+                            {t.bestOf.fullReview}
                           </Link>
                         )}
                       </div>
@@ -245,7 +247,7 @@ export default function BestOfPage() {
           {/* Buying Guide */}
           <section id="buying-guide" className="mb-12 scroll-reveal">
             <h2 className="font-playfair text-2xl font-bold mb-6">
-              Buying <span className="text-gold">Guide</span>
+              {t.bestOf.buyingGuide} <span className="text-gold">{t.bestOf.buyingGuideHighlight}</span>
             </h2>
             <div className={`rounded-xl border p-6 space-y-6 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
               {[
@@ -281,7 +283,7 @@ export default function BestOfPage() {
           {/* FAQ */}
           <section id="faq" className="mb-12 scroll-reveal">
             <h2 className="font-playfair text-2xl font-bold mb-6">
-              Frequently Asked <span className="text-gold">Questions</span>
+              {t.review.faq} <span className="text-gold">{t.review.faqHighlight}</span>
             </h2>
             <div className="space-y-4">
               {faqItems.map((faq, i) => (

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Search, Sun, Moon, ChevronDown, Watch } from 'lucide-react';
+import { Menu, X, Search, Sun, Moon, ChevronDown, Watch, Globe } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,6 +10,7 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -17,29 +19,29 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
+    { name: t.nav.home, path: '/' },
     {
-      name: 'Reviews',
+      name: t.nav.reviews,
       path: '#',
       dropdown: [
-        { name: 'Latest Reviews', path: '/review/seiko-presage-srpd37' },
+        { name: t.nav.latestReviews, path: '/review/seiko-presage-srpd37' },
         { name: 'Seiko Presage SRPD37', path: '/review/seiko-presage-srpd37' },
         { name: 'Casio G-Shock GA-2100', path: '/review/casio-gshock-ga2100' },
         { name: 'Orient Bambino V2', path: '/review/orient-bambino-v2' },
       ],
     },
     {
-      name: 'Best Of',
+      name: t.nav.bestOf,
       path: '#',
       dropdown: [
-        { name: 'Best Watches Under $200', path: '/best/watches-under-200' },
-        { name: 'Best Dive Watches', path: '/best/watches-under-200' },
-        { name: 'Best Dress Watches', path: '/best/watches-under-200' },
+        { name: t.nav.bestWatchesUnder200, path: '/best/watches-under-200' },
+        { name: t.nav.bestDiveWatches, path: '/best/watches-under-200' },
+        { name: t.nav.bestDressWatches, path: '/best/watches-under-200' },
       ],
     },
-    { name: 'Comparisons', path: '/compare/seiko-presage-vs-orient-bambino' },
-    { name: 'Try-On', path: '/try-on' },
-    { name: 'About', path: '/about' },
+    { name: t.nav.comparisons, path: '/compare/seiko-presage-vs-orient-bambino' },
+    { name: t.nav.tryOn, path: '/try-on' },
+    { name: t.nav.about, path: '/about' },
   ];
 
   return (
@@ -58,7 +60,7 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-2 group">
             <Watch className="w-8 h-8 text-gold group-hover:rotate-12 transition-transform" />
             <span className="font-playfair text-xl lg:text-2xl font-bold">
-              Watch<span className="text-gold">Vault</span>
+              Wrist<span className="text-gold">Nerd</span>
             </span>
           </Link>
 
@@ -124,6 +126,16 @@ export default function Navbar() {
               <Search className="w-5 h-5" />
             </button>
 
+            {/* Language Toggle */}
+            <button
+              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
+              className="flex items-center gap-1 p-2 rounded-full hover:bg-gold/10 transition-colors text-sm font-medium"
+              aria-label="Toggle language"
+            >
+              <Globe className="w-4 h-4" />
+              <span className="hidden sm:inline">{language === 'en' ? 'عربي' : 'EN'}</span>
+            </button>
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -151,7 +163,7 @@ export default function Navbar() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search watches, reviews, comparisons..."
+                placeholder={t.nav.searchPlaceholder}
                 className={`w-full pl-12 pr-4 py-3 rounded-lg border focus:outline-none focus:border-gold transition-colors ${
                   theme === 'dark'
                     ? 'bg-dark-secondary border-dark-border text-white placeholder-gray-500'

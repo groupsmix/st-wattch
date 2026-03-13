@@ -7,11 +7,13 @@ import RatingBar from '../components/RatingBar';
 import AffiliateButton from '../components/AffiliateButton';
 import ReadingProgress from '../components/ReadingProgress';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { watches } from '../data/watches';
 
 export default function ComparisonPage() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   useScrollReveal();
 
   const watch1 = watches.find((w) => w.slug === 'seiko-presage-srpd37')!;
@@ -19,7 +21,7 @@ export default function ComparisonPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Seiko Presage vs Orient Bambino: The Ultimate Dress Watch Showdown - WatchVault';
+    document.title = 'Seiko Presage vs Orient Bambino: The Ultimate Dress Watch Showdown - WristNerd';
   }, []);
 
   const comparisonPoints = [
@@ -59,7 +61,7 @@ export default function ComparisonPage() {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: 'Seiko Presage vs Orient Bambino: The Ultimate Dress Watch Showdown',
-    author: { '@type': 'Organization', name: 'WatchVault' },
+    author: { '@type': 'Organization', name: 'WristNerd' },
     datePublished: '2026-03-01',
   };
 
@@ -85,8 +87,8 @@ export default function ComparisonPage() {
           </h1>
 
           <p className={`text-xs italic mb-8 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
-            This post contains affiliate links. We may earn a commission at no extra cost to you.{' '}
-            <Link to="/affiliate-disclosure" className="text-gold hover:underline">Learn more</Link>
+            {t.review.affiliateDisclaimer}{' '}
+            <Link to="/affiliate-disclosure" className="text-gold hover:underline">{t.review.learnMore}</Link>
           </p>
 
           {/* Head to Head */}
@@ -96,7 +98,7 @@ export default function ComparisonPage() {
             }`}
           >
             <div className="bg-gold/10 px-6 py-3 border-b border-gold/20">
-              <h2 className="font-playfair text-xl font-bold text-gold text-center">Head-to-Head Comparison</h2>
+              <h2 className="font-playfair text-xl font-bold text-gold text-center">{t.comparison.headToHead}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-dark-border">
               {/* Watch 1 */}
@@ -128,12 +130,12 @@ export default function ComparisonPage() {
           {/* Specs Comparison Table */}
           <section className="mb-12 scroll-reveal">
             <h2 className="font-playfair text-2xl font-bold mb-6">
-              Specifications <span className="text-gold">Comparison</span>
+              {t.comparison.specsComparison} <span className="text-gold">{t.comparison.specsComparisonHighlight}</span>
             </h2>
             <div className={`rounded-xl border overflow-hidden ${theme === 'dark' ? 'border-dark-border' : 'border-light-border'}`}>
               {/* Header */}
               <div className={`grid grid-cols-3 px-4 py-3 font-semibold text-sm ${theme === 'dark' ? 'bg-dark-secondary' : 'bg-light-secondary'}`}>
-                <span>Specification</span>
+                <span>{t.comparison.specification}</span>
                 <span className="text-center text-gold">Seiko Presage</span>
                 <span className="text-center text-gold">Orient Bambino</span>
               </div>
@@ -175,7 +177,7 @@ export default function ComparisonPage() {
           {/* Rating Summary */}
           <section className="mb-12 scroll-reveal">
             <h2 className="font-playfair text-2xl font-bold mb-6">
-              Overall <span className="text-gold">Ratings</span>
+              {t.comparison.overallRatings} <span className="text-gold">{t.comparison.overallRatingsHighlight}</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className={`rounded-xl border p-6 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
@@ -207,7 +209,7 @@ export default function ComparisonPage() {
               }`}
             >
               <Trophy className="w-12 h-12 text-gold mx-auto mb-4" />
-              <h2 className="font-playfair text-3xl font-bold mb-2">Our Pick</h2>
+              <h2 className="font-playfair text-3xl font-bold mb-2">{t.comparison.ourPick}</h2>
               <h3 className="font-playfair text-2xl text-gold font-bold mb-4">Seiko Presage Cocktail Time SRPD37</h3>
               <p className={`max-w-2xl mx-auto mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                 While both watches are exceptional at their price points, the Seiko Presage edges ahead with its stunning dial, 
@@ -231,14 +233,14 @@ export default function ComparisonPage() {
           {/* Pros/Cons Summary */}
           <section className="mb-12 scroll-reveal">
             <h2 className="font-playfair text-2xl font-bold mb-6">
-              Pros & Cons <span className="text-gold">Summary</span>
+              {t.comparison.prosConsSummary} <span className="text-gold">{t.comparison.prosConsSummaryHighlight}</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[watch1, watch2].map((watch) => (
                 <div key={watch.id} className={`rounded-xl border p-6 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
                   <h3 className="font-playfair text-lg font-bold mb-4">{watch.brand} {watch.name}</h3>
                   <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-green-400 mb-2">Pros</h4>
+                    <h4 className="text-sm font-semibold text-green-400 mb-2">{t.review.pros}</h4>
                     <ul className="space-y-1">
                       {watch.pros.map((pro, i) => (
                         <li key={i} className={`text-sm flex items-start gap-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -249,7 +251,7 @@ export default function ComparisonPage() {
                     </ul>
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-red-400 mb-2">Cons</h4>
+                    <h4 className="text-sm font-semibold text-red-400 mb-2">{t.review.cons}</h4>
                     <ul className="space-y-1">
                       {watch.cons.map((con, i) => (
                         <li key={i} className={`text-sm flex items-start gap-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -267,7 +269,7 @@ export default function ComparisonPage() {
           {/* Related Reviews */}
           <section className="scroll-reveal">
             <h2 className="font-playfair text-2xl font-bold mb-6">
-              Read Full <span className="text-gold">Reviews</span>
+              {t.comparison.readFullReviews} <span className="text-gold">{t.comparison.readFullReviewsHighlight}</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[watch1, watch2].map((watch) => (
@@ -285,7 +287,7 @@ export default function ComparisonPage() {
                       <StarRating rating={watch.rating} size={12} />
                       <span className="text-xs text-gold">{watch.rating}/5</span>
                     </div>
-                    <span className="text-gold text-sm font-medium mt-1 inline-block">Read Full Review &rarr;</span>
+                    <span className="text-gold text-sm font-medium mt-1 inline-block">{t.comparison.readFullReview} &rarr;</span>
                   </div>
                 </Link>
               ))}

@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Watch, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <footer
@@ -20,11 +22,11 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-2 mb-4">
               <Watch className="w-8 h-8 text-gold" />
               <span className="font-playfair text-xl font-bold">
-                Watch<span className="text-gold">Vault</span>
+                Wrist<span className="text-gold">Nerd</span>
               </span>
             </Link>
             <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              Your trusted guide to the world of premium timepieces. Expert reviews, honest comparisons, and the best deals.
+              {t.footer.description}
             </p>
             <div className="flex gap-3">
               {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
@@ -47,14 +49,14 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-playfair text-lg font-semibold mb-4">Quick Links</h4>
+            <h4 className="font-playfair text-lg font-semibold mb-4">{t.footer.quickLinks}</h4>
             <ul className="space-y-2">
               {[
-                { name: 'Home', path: '/' },
-                { name: 'Latest Reviews', path: '/review/seiko-presage-srpd37' },
-                { name: 'Best Watches Under $200', path: '/best/watches-under-200' },
-                { name: 'Watch Comparisons', path: '/compare/seiko-presage-vs-orient-bambino' },
-                { name: 'About Us', path: '/about' },
+                { name: t.footer.home, path: '/' },
+                { name: t.footer.latestReviews, path: '/review/seiko-presage-srpd37' },
+                { name: t.footer.bestWatchesUnder200, path: '/best/watches-under-200' },
+                { name: t.footer.watchComparisons, path: '/compare/seiko-presage-vs-orient-bambino' },
+                { name: t.footer.aboutUs, path: '/about' },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -72,7 +74,7 @@ export default function Footer() {
 
           {/* Categories */}
           <div>
-            <h4 className="font-playfair text-lg font-semibold mb-4">Categories</h4>
+            <h4 className="font-playfair text-lg font-semibold mb-4">{t.footer.categories}</h4>
             <ul className="space-y-2">
               {['Luxury Watches', 'Dive Watches', 'Dress Watches', 'Smartwatches', 'Chronographs'].map(
                 (cat) => (
@@ -93,13 +95,13 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="font-playfair text-lg font-semibold mb-4">Legal</h4>
+            <h4 className="font-playfair text-lg font-semibold mb-4">{t.footer.legal}</h4>
             <ul className="space-y-2">
               {[
-                { name: 'Privacy Policy', path: '/affiliate-disclosure' },
-                { name: 'Affiliate Disclosure', path: '/affiliate-disclosure' },
-                { name: 'Terms of Service', path: '/affiliate-disclosure' },
-                { name: 'Contact Us', path: '/about' },
+                { name: t.footer.privacyPolicy, path: '/affiliate-disclosure' },
+                { name: t.footer.affiliateDisclosure, path: '/affiliate-disclosure' },
+                { name: t.footer.termsOfService, path: '/affiliate-disclosure' },
+                { name: t.footer.contactUs, path: '/about' },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -123,10 +125,10 @@ export default function Footer() {
           }`}
         >
           <p className={`text-xs ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
-            As an Amazon Associate, we earn from qualifying purchases. Prices and availability are subject to change.
+            {t.footer.amazonDisclaimer}
           </p>
           <p className={`text-xs mt-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
-            &copy; {new Date().getFullYear()} WatchVault. All rights reserved.
+            &copy; {new Date().getFullYear()} {t.footer.copyright}
           </p>
         </div>
       </div>

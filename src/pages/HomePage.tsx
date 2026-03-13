@@ -4,15 +4,17 @@ import { ExternalLink, Watch, Star, DollarSign, Search, ArrowRight } from 'lucid
 import ProductCard from '../components/ProductCard';
 import StarRating from '../components/StarRating';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { featuredWatches, categories, topSellers, reviewArticles, brands } from '../data/watches';
 
 export default function HomePage() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   useScrollReveal();
 
   useEffect(() => {
-    document.title = 'WatchVault - Your Guide to Premium Timepieces';
+    document.title = 'WristNerd - Affordable Watch Reviews & Buyer\'s Guides ($50-$500)';
   }, []);
 
   return (
@@ -29,23 +31,23 @@ export default function HomePage() {
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
           <h1 className="font-playfair text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Discover the Perfect <span className="text-gold">Timepiece</span>
+            {t.home.heroTitle} <span className="text-gold">{t.home.heroHighlight}</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-            Expert Reviews, Honest Comparisons & Best Deals on Premium Watches
+            {t.home.heroSubtitle}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/best/watches-under-200"
               className="bg-gold hover:bg-gold-light text-dark font-bold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 hover:scale-105 text-lg"
             >
-              Explore Top Watches
+              {t.home.exploreTopWatches}
             </Link>
             <Link
               to="/review/seiko-presage-srpd37"
               className="border-2 border-white/30 hover:border-gold text-white hover:text-gold font-semibold px-8 py-4 rounded-lg transition-all duration-300 text-lg"
             >
-              Read Latest Reviews
+              {t.home.readLatestReviews}
             </Link>
           </div>
         </div>
@@ -62,10 +64,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 scroll-reveal">
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
-              Featured <span className="text-gold">Watches</span>
+              {t.home.featuredWatches} <span className="text-gold">{t.home.featuredWatchesHighlight}</span>
             </h2>
             <p className={`text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              Hand-picked timepieces reviewed and rated by our expert team
+              {t.home.featuredWatchesDesc}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 scroll-reveal">
@@ -91,10 +93,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 scroll-reveal">
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
-              Browse by <span className="text-gold">Category</span>
+              {t.home.browseByCategory} <span className="text-gold">{t.home.browseByCategoryHighlight}</span>
             </h2>
             <p className={`text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              Find the perfect watch for every occasion and style
+              {t.home.browseByCategoryDesc}
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 scroll-reveal">
@@ -115,7 +117,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h3 className="font-playfair text-white font-semibold text-sm sm:text-base">{cat.name}</h3>
-                  <p className="text-gold text-xs">{cat.count} watches</p>
+                  <p className="text-gold text-xs">{cat.count} {t.home.watches}</p>
                 </div>
               </Link>
             ))}
@@ -128,10 +130,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 scroll-reveal">
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
-              Latest <span className="text-gold">Reviews</span>
+              {t.home.latestReviews} <span className="text-gold">{t.home.latestReviewsHighlight}</span>
             </h2>
             <p className={`text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              In-depth, unbiased reviews from our watch experts
+              {t.home.latestReviewsDesc}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 scroll-reveal">
@@ -169,7 +171,7 @@ export default function HomePage() {
                     {article.excerpt}
                   </p>
                   <span className="inline-flex items-center gap-1 text-gold text-sm font-medium mt-3 group-hover:gap-2 transition-all">
-                    Read More <ArrowRight className="w-4 h-4" />
+                    {t.home.readMore} <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
               </Link>
@@ -183,10 +185,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 scroll-reveal">
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
-              Top 10 <span className="text-gold">Best Sellers</span>
+              {t.home.top10} <span className="text-gold">{t.home.top10Highlight}</span>
             </h2>
             <p className={`text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              The most popular watches among our readers this month
+              {t.home.top10Desc}
             </p>
           </div>
           <div className="space-y-3 scroll-reveal">
@@ -220,7 +222,7 @@ export default function HomePage() {
                   rel="nofollow sponsored"
                   className="flex items-center gap-1 bg-gold hover:bg-gold-light text-dark text-xs sm:text-sm font-bold px-3 sm:px-4 py-2 rounded-lg transition-colors whitespace-nowrap"
                 >
-                  Check Price
+                  {t.home.checkPrice}
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
@@ -234,15 +236,15 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 scroll-reveal">
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
-              Why <span className="text-gold">Trust Us</span>
+              {t.home.whyTrustUs} <span className="text-gold">{t.home.whyTrustUsHighlight}</span>
             </h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 scroll-reveal">
             {[
-              { icon: Watch, title: '500+ Watches Reviewed', desc: 'Comprehensive reviews from every price range' },
-              { icon: Star, title: 'Unbiased Expert Reviews', desc: 'Honest opinions backed by hands-on testing' },
-              { icon: DollarSign, title: 'Best Price Guarantee Links', desc: 'We find the lowest prices from trusted retailers' },
-              { icon: Search, title: 'In-Depth Comparisons', desc: 'Side-by-side analysis to help you decide' },
+              { icon: Watch, title: t.home.watchesReviewed, desc: t.home.watchesReviewedDesc },
+              { icon: Star, title: t.home.unbiasedReviews, desc: t.home.unbiasedReviewsDesc },
+              { icon: DollarSign, title: t.home.bestPriceGuarantee, desc: t.home.bestPriceGuaranteeDesc },
+              { icon: Search, title: t.home.inDepthComparisons, desc: t.home.inDepthComparisonsDesc },
             ].map((item, i) => (
               <div
                 key={i}
@@ -268,7 +270,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 scroll-reveal">
             <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
-              Brand <span className="text-gold">Spotlight</span>
+              {t.home.brandSpotlight} <span className="text-gold">{t.home.brandSpotlightHighlight}</span>
             </h2>
           </div>
         </div>
@@ -294,10 +296,10 @@ export default function HomePage() {
       <section className={`py-20 ${theme === 'dark' ? 'bg-dark' : 'bg-light-bg'}`}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center scroll-reveal">
           <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
-            Get the Best Watch Deals in <span className="text-gold">Your Inbox</span>
+            {t.home.newsletterTitle} <span className="text-gold">{t.home.newsletterHighlight}</span>
           </h2>
           <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            Join 10,000+ watch enthusiasts. No spam, unsubscribe anytime.
+            {t.home.newsletterDesc}
           </p>
           <form
             onSubmit={(e) => e.preventDefault()}
@@ -305,7 +307,7 @@ export default function HomePage() {
           >
             <input
               type="email"
-              placeholder="Enter your email address"
+              placeholder={t.home.emailPlaceholder}
               required
               className={`flex-1 px-5 py-4 rounded-lg border focus:outline-none focus:border-gold transition-colors ${
                 theme === 'dark'
@@ -317,7 +319,7 @@ export default function HomePage() {
               type="submit"
               className="bg-gold hover:bg-gold-light text-dark font-bold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 whitespace-nowrap"
             >
-              Subscribe Now
+              {t.home.subscribeNow}
             </button>
           </form>
         </div>

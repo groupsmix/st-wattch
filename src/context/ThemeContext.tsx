@@ -12,13 +12,13 @@ const ThemeContext = createContext<ThemeContextType>({
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const saved = localStorage.getItem('watchvault-theme');
+    const saved = localStorage.getItem('wristnerd-theme');
     return (saved === 'light' || saved === 'dark') ? saved : 'dark';
   });
 
   useEffect(() => {
     document.body.className = theme;
-    localStorage.setItem('watchvault-theme', theme);
+    localStorage.setItem('wristnerd-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {

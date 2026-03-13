@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function AffiliateDisclosurePage() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Affiliate Disclosure - WatchVault';
+    document.title = 'Affiliate Disclosure - WristNerd';
   }, []);
 
   return (
@@ -20,10 +22,10 @@ export default function AffiliateDisclosurePage() {
         <div className="text-center mb-12">
           <Shield className="w-16 h-16 text-gold mx-auto mb-6" />
           <h1 className="font-playfair text-4xl sm:text-5xl font-bold mb-4">
-            Affiliate <span className="text-gold">Disclosure</span>
+            {t.affiliate.title} <span className="text-gold">{t.affiliate.titleHighlight}</span>
           </h1>
           <p className={`text-lg ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            Transparency is important to us. Here's how we make money.
+            {t.affiliate.subtitle}
           </p>
         </div>
 
@@ -34,16 +36,16 @@ export default function AffiliateDisclosurePage() {
             }`}
           >
             <p className={`leading-relaxed font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-              WatchVault is reader-supported. When you buy through links on our site, we may earn an 
-              affiliate commission at no additional cost to you. This helps us continue to provide free, 
-              in-depth watch reviews and comparisons.
+                            WristNerd is reader-supported. When you buy through links on our site, we may earn an 
+                            affiliate commission at no additional cost to you. This helps us continue to provide free, 
+                            in-depth watch reviews and comparisons.
             </p>
           </div>
 
           <section>
             <h2 className="font-playfair text-xl font-bold mb-3">How It Works</h2>
             <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              WatchVault participates in affiliate programs, including the Amazon Associates Program. 
+              WristNerd participates in affiliate programs, including the Amazon Associates Program. 
               This means that when you click on certain links on our site and make a purchase, we may 
               receive a small commission from the retailer. This commission comes at absolutely no 
               additional cost to you - the price you pay is the same whether you use our link or go 
@@ -78,7 +80,7 @@ export default function AffiliateDisclosurePage() {
           <section>
             <h2 className="font-playfair text-xl font-bold mb-3">Amazon Associates Disclosure</h2>
             <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              As an Amazon Associate, WatchVault earns from qualifying purchases. Amazon and the 
+              As an Amazon Associate, WristNerd earns from qualifying purchases. Amazon and the 
               Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. Product prices and 
               availability are accurate as of the date/time indicated and are subject to change. Any 
               price and availability information displayed on Amazon at the time of purchase will apply.

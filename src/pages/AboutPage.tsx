@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import { Watch, Target, Shield, Users, Search, Award, BarChart3 } from 'lucide-react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function AboutPage() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   useScrollReveal();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'About Us - WatchVault';
+    document.title = 'About Us - WristNerd';
   }, []);
 
   return (
@@ -23,15 +25,13 @@ export default function AboutPage() {
         <div className="text-center mb-16 animate-fade-in-up">
           <Watch className="w-16 h-16 text-gold mx-auto mb-6" />
           <h1 className="font-playfair text-4xl sm:text-5xl font-bold mb-6">
-            About <span className="text-gold">WatchVault</span>
+            {t.about.aboutTitle} <span className="text-gold">{t.about.aboutHighlight}</span>
           </h1>
           <p className="font-playfair text-xl text-gold italic mb-4">
-            "Your Guide to the World of Premium Timepieces"
+            {t.about.tagline}
           </p>
           <p className={`text-lg max-w-2xl mx-auto leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-            WatchVault was born from a simple frustration: finding honest, comprehensive watch reviews 
-            shouldn't require a PhD in horology. We created this site to be the resource we wished existed 
-            when we first fell in love with watches.
+            {t.about.description}
           </p>
         </div>
 
@@ -40,13 +40,10 @@ export default function AboutPage() {
           <div className={`rounded-xl border p-8 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
             <div className="flex items-center gap-3 mb-4">
               <Target className="w-8 h-8 text-gold" />
-              <h2 className="font-playfair text-2xl font-bold">Our Mission</h2>
+              <h2 className="font-playfair text-2xl font-bold">{t.about.ourMission}</h2>
             </div>
             <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              We believe everyone deserves to find their perfect watch without the confusion, hype, or 
-              pressure. Our mission is to provide clear, honest, and thoroughly researched watch reviews 
-              and comparisons that help you make confident buying decisions - whether you're spending $50 
-              or $5,000.
+              {t.about.missionText}
             </p>
           </div>
         </section>
@@ -54,13 +51,13 @@ export default function AboutPage() {
         {/* Why We're Different */}
         <section className="mb-16 scroll-reveal">
           <h2 className="font-playfair text-2xl font-bold mb-8 text-center">
-            Why We're <span className="text-gold">Different</span>
+            {t.about.whyDifferent} <span className="text-gold">{t.about.whyDifferentHighlight}</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: Shield, title: 'Unbiased Reviews', desc: 'We buy watches with our own money or borrow them from retailers - never from brands. This ensures our reviews are completely independent.' },
-              { icon: Search, title: 'Deep Research', desc: 'Every review includes hands-on testing, spec verification, and comparison with competitors. We don\'t just skim the surface.' },
-              { icon: Users, title: 'Community First', desc: 'Our recommendations are based on what\'s best for you, not what earns us the highest commission. Your trust is worth more than any affiliate fee.' },
+              { icon: Shield, title: t.about.unbiasedReviews, desc: t.about.unbiasedReviewsDesc },
+              { icon: Search, title: t.about.deepResearch, desc: t.about.deepResearchDesc },
+              { icon: Users, title: t.about.communityFirst, desc: t.about.communityFirstDesc },
             ].map((item, i) => (
               <div
                 key={i}
@@ -79,7 +76,7 @@ export default function AboutPage() {
         {/* Our Review Methodology */}
         <section className="mb-16 scroll-reveal">
           <h2 className="font-playfair text-2xl font-bold mb-8 text-center">
-            Our Review <span className="text-gold">Methodology</span>
+            {t.about.reviewMethodology} <span className="text-gold">{t.about.reviewMethodologyHighlight}</span>
           </h2>
           <div className={`rounded-xl border p-8 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
             <div className="space-y-6">
@@ -109,7 +106,7 @@ export default function AboutPage() {
         {/* The Team */}
         <section className="mb-16 scroll-reveal">
           <h2 className="font-playfair text-2xl font-bold mb-8 text-center">
-            Meet the <span className="text-gold">Team</span>
+            {t.about.meetTeam} <span className="text-gold">{t.about.meetTeamHighlight}</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
@@ -142,23 +139,23 @@ export default function AboutPage() {
               : 'bg-gradient-to-b from-gold/10 to-white border-gold/20'
           }`}>
             <h2 className="font-playfair text-2xl font-bold mb-4">
-              Start Exploring
+              {t.about.startExploring}
             </h2>
             <p className={`mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              Ready to find your next watch? Check out our latest reviews and buying guides.
+              {t.about.startExploringDesc}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/best/watches-under-200"
                 className="bg-gold hover:bg-gold-light text-dark font-bold px-8 py-3 rounded-lg transition-colors"
               >
-                Best Watches Under $200
+                {t.about.bestWatchesUnder200}
               </Link>
               <Link
                 to="/review/seiko-presage-srpd37"
                 className="border-2 border-gold text-gold hover:bg-gold hover:text-dark font-bold px-8 py-3 rounded-lg transition-colors"
               >
-                Read Our Reviews
+                {t.about.readOurReviews}
               </Link>
             </div>
           </div>

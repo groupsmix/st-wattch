@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import Breadcrumbs from '../components/Breadcrumbs';
 import VirtualTryOn from '../components/VirtualTryOn';
 import { watches } from '../data/watches';
@@ -7,10 +8,11 @@ import { Link } from 'react-router-dom';
 
 export default function TryOnPage() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === 'dark';
 
   useEffect(() => {
-    document.title = 'Virtual Try-On | WatchVault';
+    document.title = 'Virtual Try-On | WristNerd';
     window.scrollTo(0, 0);
   }, []);
 
@@ -32,12 +34,11 @@ export default function TryOnPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="font-playfair text-4xl md:text-5xl font-bold mb-4">
-            Virtual Watch{' '}
-            <span className="text-gold">Try-On</span>
+            {t.tryOn.title}{' '}
+            <span className="text-gold">{t.tryOn.titleHighlight}</span>
           </h1>
           <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            See how any watch looks on your wrist before you buy. Our AI-powered virtual
-            try-on uses your camera to detect your wrist and overlay the watch in real-time.
+            {t.tryOn.description}
           </p>
         </div>
 
@@ -49,7 +50,7 @@ export default function TryOnPage() {
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
-            Powered by AI Hand Detection
+            {t.tryOn.poweredByAI}
           </div>
         </div>
 
@@ -59,26 +60,26 @@ export default function TryOnPage() {
         {/* How It Works */}
         <div className="mt-16 mb-12">
           <h2 className="font-playfair text-3xl font-bold text-center mb-8">
-            How It <span className="text-gold">Works</span>
+            {t.tryOn.howItWorks} <span className="text-gold">{t.tryOn.howItWorksHighlight}</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 step: '1',
-                title: 'Select a Watch',
-                description: 'Choose from our collection of featured watches to try on virtually.',
+                title: t.tryOn.selectWatch,
+                description: t.tryOn.selectWatchDesc,
                 icon: '⌚',
               },
               {
                 step: '2',
-                title: 'Show Your Wrist',
-                description: 'Open your camera or upload a photo showing your wrist clearly.',
+                title: t.tryOn.showWrist,
+                description: t.tryOn.showWristDesc,
                 icon: '📸',
               },
               {
                 step: '3',
-                title: 'See the Result',
-                description: 'Our AI detects your wrist and places the watch perfectly. Download or share!',
+                title: t.tryOn.seeResult,
+                description: t.tryOn.seeResultDesc,
                 icon: '✨',
               },
             ].map((item) => (
@@ -106,23 +107,23 @@ export default function TryOnPage() {
         {/* CTA */}
         <div className={`text-center p-8 rounded-2xl ${isDark ? 'bg-dark-secondary' : 'bg-gray-50'}`}>
           <h3 className="font-playfair text-2xl font-bold mb-3">
-            Like What You See?
+            {t.tryOn.likeWhatYouSee}
           </h3>
           <p className={`mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            Check out our detailed reviews and find the best price for your favorite watch.
+            {t.tryOn.likeWhatYouSeeDesc}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
               to="/best/watches-under-200"
               className="px-6 py-3 bg-gold text-dark font-semibold rounded-lg hover:bg-gold-light transition-colors"
             >
-              Best Watches Under $200
+              {t.about.bestWatchesUnder200}
             </Link>
             <Link
               to="/"
               className={`px-6 py-3 rounded-lg font-semibold border-2 border-gold text-gold hover:bg-gold hover:text-dark transition-colors`}
             >
-              Browse All Reviews
+              {t.tryOn.browseAllReviews}
             </Link>
           </div>
         </div>
