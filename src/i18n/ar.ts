@@ -200,6 +200,18 @@ const ar: Translations = {
     copyright: '\u0631\u0633\u062A\u0646\u064A\u0631\u062F. \u062C\u0645\u064A\u0639 \u0627\u0644\u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638\u0629.',
   },
 
+  // AI Features
+  ai: {
+    watchAdvisor: 'مستشار الساعات',
+    aiComparison: 'مقارنة ذكية',
+    blog: 'المدونة',
+    salesAnalyzer: 'محلل المبيعات',
+    notifications: 'الإشعارات',
+    aiSettings: 'إعدادات AI',
+    poweredByAI: 'مدعوم بالذكاء الاصطناعي',
+    aiFeatures: 'ميزات AI',
+  },
+
   // Common
   common: {
     checkPrice: '\u062A\u062D\u0642\u0642 \u0645\u0646 \u0627\u0644\u0633\u0639\u0631',

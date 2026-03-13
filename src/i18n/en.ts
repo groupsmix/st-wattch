@@ -198,6 +198,18 @@ const en = {
     copyright: 'WristNerd. All rights reserved.',
   },
 
+  // AI Features
+  ai: {
+    watchAdvisor: 'Watch Advisor',
+    aiComparison: 'AI Comparison',
+    blog: 'Blog',
+    salesAnalyzer: 'Sales Analyzer',
+    notifications: 'Notifications',
+    aiSettings: 'AI Settings',
+    poweredByAI: 'Powered by AI',
+    aiFeatures: 'AI Features',
+  },
+
   // Common
   common: {
     checkPrice: 'Check Price',

@@ -68,6 +68,17 @@ export default function Navbar() {
     },
     { name: t.nav.comparisons, path: '/compare/seiko-presage-vs-orient-bambino' },
     { name: t.nav.tryOn, path: '/try-on' },
+    {
+      name: t.ai.aiFeatures,
+      path: '#',
+      dropdown: [
+        { name: t.ai.aiComparison, path: '/ai/compare' },
+        { name: t.ai.blog, path: '/ai/blog' },
+        { name: t.ai.salesAnalyzer, path: '/ai/sales' },
+        { name: t.ai.notifications, path: '/ai/notifications' },
+        { name: t.ai.aiSettings, path: '/ai/settings' },
+      ],
+    },
     { name: t.nav.about, path: '/about' },
   ];
 

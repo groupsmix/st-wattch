@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExternalLink, Watch, Star, DollarSign, Search, ArrowRight } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import StarRating from '../components/StarRating';
+import PersonalizedRecommendations from '../components/ai/PersonalizedRecommendations';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -294,8 +295,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter */}
+      {/* AI Personalized Recommendations */}
       <section className={`py-20 ${theme === 'dark' ? 'bg-dark' : 'bg-light-bg'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <PersonalizedRecommendations />
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className={`py-20 ${theme === 'dark' ? 'bg-dark-secondary' : 'bg-light-secondary'}`}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center scroll-reveal">
           <h2 className="font-playfair text-3xl sm:text-4xl font-bold mb-4">
             {t.home.newsletterTitle} <span className="text-gold">{t.home.newsletterHighlight}</span>

@@ -7,6 +7,9 @@ import RatingBar from '../components/RatingBar';
 import AffiliateButton from '../components/AffiliateButton';
 import TableOfContents from '../components/TableOfContents';
 import ReadingProgress from '../components/ReadingProgress';
+import AIReviewSummary from '../components/ai/AIReviewSummary';
+import AISEOOptimizer from '../components/ai/AISEOOptimizer';
+import AIImageAltText from '../components/ai/AIImageAltText';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -183,9 +186,24 @@ export default function ReviewPage() {
                   <p className="text-2xl font-bold text-gold mb-4">${watch.price}</p>
 
                   <AffiliateButton url={watch.affiliateUrl} fullWidth />
+
+                  {/* AI Review Summary */}
+                  <div className="mt-4">
+                    <AIReviewSummary watch={watch} />
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* AI SEO Optimizer */}
+          <div className="mb-12 scroll-reveal">
+            <AISEOOptimizer watch={watch} />
+          </div>
+
+          {/* AI Image Alt Text */}
+          <div className="mb-12 scroll-reveal">
+            <AIImageAltText imageSrc={watch.image} watchName={watch.name} brand={watch.brand} />
           </div>
 
           {/* Specifications Table */}
