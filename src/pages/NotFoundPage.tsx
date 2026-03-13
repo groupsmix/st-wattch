@@ -1,39 +1,35 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Watch } from 'lucide-react';
+import { Home, ArrowLeft } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-export default function NotFoundPage() {
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    document.title = '404 - Page Not Found | WristNerd';
-  }, []);
+export function NotFoundPage() {
+  const { t } = useTheme();
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 pt-20">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-950 px-4 transition-colors">
       <div className="text-center max-w-md">
-        <Watch className="w-20 h-20 text-gold mx-auto mb-6 opacity-50" />
-        <h1 className="font-playfair text-6xl font-bold text-gold mb-4">404</h1>
-        <h2 className="font-playfair text-2xl font-bold mb-4">
-          Page Not Found
-        </h2>
-        <p className={`mb-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-          The page you're looking for doesn't exist or has been moved.
+        <div className="text-8xl font-bold text-amber-500/20 dark:text-amber-500/10 mb-4">404</div>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+          {t.common.notFound}
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+          {t.common.notFoundDesc}
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             to="/"
-            className="bg-gold hover:bg-gold-light text-dark font-bold px-6 py-3 rounded-lg transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl transition-colors"
           >
-            Go Home
+            <Home className="w-4 h-4" />
+            {t.common.backToHome}
           </Link>
-          <Link
-            to="/best/watches-under-200"
-            className="border-2 border-gold text-gold hover:bg-gold hover:text-dark font-bold px-6 py-3 rounded-lg transition-colors"
+          <button
+            onClick={() => window.history.back()}
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl transition-colors"
           >
-            Browse Watches
-          </Link>
+            <ArrowLeft className="w-4 h-4" />
+            Go Back
+          </button>
         </div>
       </div>
     </div>

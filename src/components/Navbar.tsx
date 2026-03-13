@@ -1,171 +1,152 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, Sun, Moon, Search, Watch, Globe, Sparkles } from "lucide-react";
-import { useApp } from "../context/AppContext";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, Menu, X, Moon, Sun, Globe, Watch } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
-export default function Navbar() {
-  const { theme, toggleTheme, toggleLanguage, t, isRtl } = useApp();
+export function Navbar() {
+  const { theme, toggleTheme, language, setLanguage, t } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
+      setSearchQuery('');
+      setShowSearch(false);
       setIsOpen(false);
     }
   };
 
   const navLinks = [
-    { to: "/", label: t("nav_home") },
-    { to: "/categories", label: t("nav_categories") },
-    { to: "/compare", label: t("nav_compare") },
+    { to: '/', label: t.nav.home },
+    { to: '/reviews', label: t.nav.reviews },
+    { to: '/compare', label: t.nav.compare },
+    { to: '/categories', label: t.nav.categories },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b transition-colors duration-300 ${
-      theme === "dark"
-        ? "bg-gray-950/90 border-gray-800"
-        : "bg-white/90 border-gray-200"
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <nav className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <Watch className={`w-7 h-7 transition-colors ${
-              theme === "dark" ? "text-amber-400" : "text-amber-600"
-            } group-hover:text-amber-500`} />
-            <span className={`text-xl font-bold tracking-tight ${
-              theme === "dark" ? "text-white" : "text-gray-900"
-            }`}>
-              Wrist<span className={theme === "dark" ? "text-amber-400" : "text-amber-600"}>Nerd</span>
-            </span>
-            <span className={`hidden sm:flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full ${
-              theme === "dark" ? "bg-amber-400/10 text-amber-400" : "bg-amber-100 text-amber-700"
-            }`}>
-              <Sparkles className="w-3 h-3" /> AI
+            <Watch className="w-8 h-8 text-amber-500 group-hover:rotate-12 transition-transform" />
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
+              Wrist<span className="text-amber-500">Nerd</span>
             </span>
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
+            {navLinks.map(link => (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`text-sm font-medium transition-colors hover:text-amber-500 ${
-                  theme === "dark" ? "text-gray-300" : "text-gray-600"
-                }`}
+                className="text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors font-medium text-sm"
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* Search + Controls */}
-          <div className="hidden md:flex items-center gap-3">
-            <form onSubmit={handleSearch} className="relative">
-              <Search className={`absolute ${isRtl ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 ${
-                theme === "dark" ? "text-gray-500" : "text-gray-400"
-              }`} />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={t("nav_ai_search_placeholder")}
-                className={`w-64 ${isRtl ? 'pr-9 pl-3' : 'pl-9 pr-3'} py-2 text-sm rounded-xl border transition-colors ${
-                  theme === "dark"
-                    ? "bg-gray-800/50 border-gray-700 text-white placeholder-gray-500 focus:border-amber-500"
-                    : "bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:border-amber-500"
-                } focus:outline-none focus:ring-1 focus:ring-amber-500/30`}
-              />
-            </form>
-
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            {/* Search Toggle */}
             <button
-              onClick={toggleLanguage}
-              className={`p-2 rounded-lg transition-colors ${
-                theme === "dark" ? "hover:bg-gray-800 text-gray-400" : "hover:bg-gray-100 text-gray-500"
-              }`}
-              title={t("lang_switch")}
+              onClick={() => setShowSearch(!showSearch)}
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+              aria-label="Search"
             >
-              <Globe className="w-4 h-4" />
+              <Search className="w-5 h-5" />
             </button>
 
+            {/* Language Toggle */}
+            <button
+              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors flex items-center gap-1"
+              aria-label="Toggle Language"
+            >
+              <Globe className="w-5 h-5" />
+              <span className="text-xs font-medium hidden sm:inline">
+                {language === 'en' ? 'AR' : 'EN'}
+              </span>
+            </button>
+
+            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg transition-colors ${
-                theme === "dark" ? "hover:bg-gray-800 text-gray-400" : "hover:bg-gray-100 text-gray-500"
-              }`}
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+              aria-label="Toggle Theme"
             >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+
+            {/* Mobile Menu */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 text-gray-600 dark:text-gray-300"
+              aria-label="Menu"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
-
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-lg ${
-              theme === "dark" ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className={`md:hidden border-t ${
-          theme === "dark" ? "bg-gray-950 border-gray-800" : "bg-white border-gray-200"
-        }`}>
-          <div className="px-4 py-3 space-y-3">
-            <form onSubmit={handleSearch} className="relative">
-              <Search className={`absolute ${isRtl ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 ${
-                theme === "dark" ? "text-gray-500" : "text-gray-400"
-              }`} />
+        {/* Search Bar */}
+        {showSearch && (
+          <div className="py-3 border-t border-gray-200 dark:border-gray-800">
+            <form onSubmit={handleSearch} className="flex gap-2">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={t("nav_ai_search_placeholder")}
-                className={`w-full ${isRtl ? 'pr-9 pl-3' : 'pl-9 pr-3'} py-2 text-sm rounded-xl border transition-colors ${
-                  theme === "dark"
-                    ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
-                    : "bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400"
-                } focus:outline-none focus:border-amber-500`}
+                placeholder={t.nav.search}
+                className="flex-1 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors"
+                autoFocus
               />
-            </form>
-
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setIsOpen(false)}
-                className={`block py-2 text-sm font-medium ${
-                  theme === "dark" ? "text-gray-300" : "text-gray-600"
-                }`}
+              <button
+                type="submit"
+                className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-colors font-medium"
               >
-                {link.label}
-              </Link>
-            ))}
+                <Search className="w-5 h-5" />
+              </button>
+            </form>
+          </div>
+        )}
 
-            <div className="flex items-center gap-2 pt-2 border-t border-gray-700/30">
-              <button onClick={toggleLanguage} className={`flex-1 py-2 text-sm rounded-lg ${
-                theme === "dark" ? "bg-gray-800 text-gray-300" : "bg-gray-100 text-gray-600"
-              }`}>
-                {t("lang_switch")}
-              </button>
-              <button onClick={toggleTheme} className={`flex-1 py-2 text-sm rounded-lg ${
-                theme === "dark" ? "bg-gray-800 text-gray-300" : "bg-gray-100 text-gray-600"
-              }`}>
-                {theme === "dark" ? t("theme_light") : t("theme_dark")}
-              </button>
+        {/* Mobile Nav */}
+        {isOpen && (
+          <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800">
+            <div className="flex flex-col gap-3">
+              {navLinks.map(link => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors font-medium py-2"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <form onSubmit={handleSearch} className="flex gap-2 pt-2">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t.nav.search}
+                  className="flex-1 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+                <button type="submit" className="px-4 py-2 bg-amber-500 text-white rounded-lg">
+                  <Search className="w-4 h-4" />
+                </button>
+              </form>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
   );
 }

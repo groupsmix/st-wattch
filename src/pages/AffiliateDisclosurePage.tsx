@@ -1,108 +1,54 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield } from 'lucide-react';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { ChevronRight } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { useLanguage } from '../context/LanguageContext';
 
-export default function AffiliateDisclosurePage() {
-  const { theme } = useTheme();
-  const { language, t } = useLanguage();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    document.title = language === 'ar' ? 'إفصاح الشراكات - WristNerd' : 'Affiliate Disclosure - WristNerd';
-  }, [language]);
+export function AffiliateDisclosurePage() {
+  const { t } = useTheme();
 
   return (
-    <div className="pt-24 pb-16">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Breadcrumbs items={[{ name: 'Affiliate Disclosure' }]} />
+    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <nav className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
+          <Link to="/" className="hover:text-amber-500 transition-colors">{t.nav.home}</Link>
+          <ChevronRight className="w-3 h-3" />
+          <span className="text-gray-900 dark:text-white">{t.footer.affiliate}</span>
+        </nav>
 
-        <div className="text-center mb-12">
-          <Shield className="w-16 h-16 text-gold mx-auto mb-6" />
-          <h1 className="font-playfair text-4xl sm:text-5xl font-bold mb-4">
-            {t.affiliate.title} <span className="text-gold">{t.affiliate.titleHighlight}</span>
-          </h1>
-          <p className={`text-lg ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            {t.affiliate.subtitle}
-          </p>
-        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+          {t.footer.affiliate}
+        </h1>
+        <div className="h-1 w-16 bg-amber-500 rounded mb-8" />
 
-        <div className={`rounded-xl border p-8 space-y-8 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
-          <div
-            className={`p-6 rounded-lg border-l-4 border-gold ${
-              theme === 'dark' ? 'bg-gold/5' : 'bg-gold/5'
-            }`}
-          >
-            <p className={`leading-relaxed font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                            WristNerd is reader-supported. When you buy through links on our site, we may earn an 
-                            affiliate commission at no additional cost to you. This helps us continue to provide free, 
-                            in-depth watch reviews and comparisons.
+        <div className="prose dark:prose-invert max-w-none space-y-6 text-gray-700 dark:text-gray-300">
+          <p className="text-sm text-gray-500">Last updated: January 2024</p>
+
+          <div className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
+            <p className="font-medium text-amber-800 dark:text-amber-300">
+              WristNerd is a participant in affiliate advertising programs designed to provide a means for us to earn fees by linking to retailer websites.
             </p>
           </div>
 
-          <section>
-            <h2 className="font-playfair text-xl font-bold mb-3">How It Works</h2>
-            <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              WristNerd participates in affiliate programs, including the Amazon Associates Program. 
-              This means that when you click on certain links on our site and make a purchase, we may 
-              receive a small commission from the retailer. This commission comes at absolutely no 
-              additional cost to you - the price you pay is the same whether you use our link or go 
-              directly to the retailer.
-            </p>
-          </section>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">How It Works</h2>
+          <p>When you click on a link to a retailer on our site and make a purchase, we may receive a small commission at no additional cost to you. This helps us maintain and improve our content, keeping our reviews free and accessible to everyone.</p>
 
-          <section>
-            <h2 className="font-playfair text-xl font-bold mb-3">Our Commitment to Honesty</h2>
-            <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              Affiliate commissions never influence our reviews, ratings, or recommendations. We 
-              maintain strict editorial independence. Our team evaluates watches based on their merits, 
-              regardless of whether we earn a commission from the sale. If a watch isn't good, we'll 
-              tell you - even if it would earn us more money to recommend it.
-            </p>
-          </section>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Our Partners</h2>
+          <p>We participate in affiliate programs with the following retailers:</p>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>Amazon Associates Program</li>
+            <li>Jomashop Affiliate Program</li>
+            <li>Long Island Watch</li>
+            <li>Chrono24</li>
+            <li>Various brand official stores</li>
+          </ul>
 
-          <section>
-            <h2 className="font-playfair text-xl font-bold mb-3">Types of Affiliate Links</h2>
-            <ul className={`list-disc list-inside space-y-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              <li>"Check Price" and "Buy" buttons on product reviews</li>
-              <li>Product names that link to retailer pages</li>
-              <li>Comparison table links</li>
-              <li>Links within "Where to Buy" sections</li>
-            </ul>
-            <p className={`mt-3 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              All affiliate links are marked with <code className="text-gold">rel="nofollow sponsored"</code> in 
-              accordance with search engine guidelines.
-            </p>
-          </section>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Editorial Independence</h2>
+          <p>Our editorial content, including reviews, ratings, and recommendations, is not influenced by our affiliate partnerships. We review watches based on their merits, and our opinions are our own. We never give positive reviews in exchange for affiliate commissions.</p>
 
-          <section>
-            <h2 className="font-playfair text-xl font-bold mb-3">Amazon Associates Disclosure</h2>
-            <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              As an Amazon Associate, WristNerd earns from qualifying purchases. Amazon and the 
-              Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. Product prices and 
-              availability are accurate as of the date/time indicated and are subject to change. Any 
-              price and availability information displayed on Amazon at the time of purchase will apply.
-            </p>
-          </section>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Price Accuracy</h2>
+          <p>While we make every effort to display accurate pricing information, prices may change between the time of writing and your visit. Always verify the current price on the retailer's website before making a purchase.</p>
 
-          <section>
-            <h2 className="font-playfair text-xl font-bold mb-3">Questions?</h2>
-            <p className={`leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              If you have any questions about our affiliate relationships or how we make money, please 
-              don't hesitate to reach out. We believe in full transparency with our readers.
-            </p>
-          </section>
-
-          <div className="text-center pt-4">
-            <Link
-              to="/about"
-              className="text-gold hover:underline font-medium"
-            >
-              Learn more about how we review watches &rarr;
-            </Link>
-          </div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Questions?</h2>
+          <p>If you have any questions about our affiliate relationships, please contact us at affiliate@wristnerd.com.</p>
         </div>
       </div>
     </div>
