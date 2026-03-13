@@ -13,7 +13,7 @@ import { watches } from '../data/watches';
 
 export default function ComparisonPage() {
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   useScrollReveal();
 
   const watch1 = watches.find((w) => w.slug === 'seiko-presage-srpd37')!;
@@ -21,8 +21,10 @@ export default function ComparisonPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Seiko Presage vs Orient Bambino: The Ultimate Dress Watch Showdown - WristNerd';
-  }, []);
+    document.title = language === 'ar'
+      ? 'Seiko Presage ضد Orient Bambino: المقارنة النهائية - WristNerd'
+      : 'Seiko Presage vs Orient Bambino: The Ultimate Dress Watch Showdown - WristNerd';
+  }, [language]);
 
   const comparisonPoints = [
     {

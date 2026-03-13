@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Hands } from '@mediapipe/hands';
-import type { Results } from '@mediapipe/hands';
-import { Camera } from '@mediapipe/camera_utils';
+import type { Hands, Results } from '@mediapipe/hands';
+import type { Camera } from '@mediapipe/camera_utils';
 import { useTheme } from '../context/ThemeContext';
 import { Camera as CameraIcon, Upload, RotateCcw, Download, FlipHorizontal } from 'lucide-react';
 
@@ -49,33 +48,14 @@ export default function VirtualTryOn({ watches }: VirtualTryOnProps) {
     img.src = watchFaces[selectedWatch.id] || selectedWatch.image;
   }, [selectedWatch]);
 
-  // Initialize MediaPipe Hands
+  // Cleanup on unmount
   useEffect(() => {
-    const hands = new Hands({
-      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
-    });
-
-    hands.setOptions({
-      maxNumHands: 2,
-      modelComplexity: 1,
-      minDetectionConfidence: 0.7,
-      minTrackingConfidence: 0.5,
-    });
-
-    hands.onResults(onResults);
-    setHandsInstance(hands);
-
     return () => {
-      hands.close();
+      if (handsInstance) {
+        handsInstance.close();
+      }
     };
-  }, []);
-
-  // Update the onResults callback when dependencies change
-  useEffect(() => {
-    if (handsInstance) {
-      handsInstance.onResults(onResults);
-    }
-  }, [watchImg, watchSize, mirrored, mode]);
+  }, [handsInstance]);
 
   const onResults = useCallback((results: Results) => {
     const canvas = canvasRef.current;
@@ -106,17 +86,16 @@ export default function VirtualTryOn({ watches }: VirtualTryOnProps) {
 
         // Calculate wrist position in canvas coordinates
         let wristX = wrist.x * canvas.width;
-        let wristY = wrist.y * canvas.height;
+        const wristY = wrist.y * canvas.height;
         let middleX = middleMCP.x * canvas.width;
-        let middleY = middleMCP.y * canvas.height;
+        const middleY = middleMCP.y * canvas.height;
         let indexX = indexMCP.x * canvas.width;
-        let indexY = indexMCP.y * canvas.height;
+        const indexY = indexMCP.y * canvas.height;
         let pinkyX = pinkyMCP.x * canvas.width;
-        let pinkyY = pinkyMCP.y * canvas.height;
+        const pinkyY = pinkyMCP.y * canvas.height;
 
         if (mirrored && mode === 'camera') {
           wristX = canvas.width - wristX;
-          wristY = wristY;
           middleX = canvas.width - middleX;
           indexX = canvas.width - indexX;
           pinkyX = canvas.width - pinkyX;
@@ -208,18 +187,43 @@ export default function VirtualTryOn({ watches }: VirtualTryOnProps) {
     }
   }, [watchImg, watchSize, mirrored, mode]);
 
+  // Update the onResults callback when dependencies change
+  useEffect(() => {
+    if (handsInstance) {
+      handsInstance.onResults(onResults);
+    }
+  }, [watchImg, watchSize, mirrored, mode, handsInstance, onResults]);
+
   const startCamera = async () => {
     setLoading(true);
     setMode('camera');
     setPhotoResult(null);
 
     try {
-      if (!videoRef.current || !handsInstance) return;
+      if (!videoRef.current) return;
 
-      const cam = new Camera(videoRef.current, {
+      // Lazy-load MediaPipe on first use
+      let hands = handsInstance;
+      if (!hands) {
+        const { Hands: HandsClass } = await import('@mediapipe/hands');
+        hands = new HandsClass({
+          locateFile: (file: string) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
+        });
+        hands.setOptions({
+          maxNumHands: 2,
+          modelComplexity: 1,
+          minDetectionConfidence: 0.7,
+          minTrackingConfidence: 0.5,
+        });
+        hands.onResults(onResults);
+        setHandsInstance(hands);
+      }
+      const { Camera: CameraClass } = await import('@mediapipe/camera_utils');
+
+      const cam = new CameraClass(videoRef.current, {
         onFrame: async () => {
-          if (videoRef.current && handsInstance) {
-            await handsInstance.send({ image: videoRef.current });
+          if (videoRef.current && hands) {
+            await hands.send({ image: videoRef.current });
           }
         },
         width: 640,
@@ -249,7 +253,7 @@ export default function VirtualTryOn({ watches }: VirtualTryOnProps) {
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || !handsInstance) return;
+    if (!file) return;
 
     setLoading(true);
     setMode('photo');
@@ -261,14 +265,30 @@ export default function VirtualTryOn({ watches }: VirtualTryOnProps) {
       setCameraActive(false);
     }
 
+    // Lazy-load MediaPipe on first use
+    let hands = handsInstance;
+    if (!hands) {
+      const { Hands: HandsClass } = await import('@mediapipe/hands');
+      hands = new HandsClass({
+        locateFile: (f: string) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}`,
+      });
+      hands.setOptions({
+        maxNumHands: 2,
+        modelComplexity: 1,
+        minDetectionConfidence: 0.7,
+        minTrackingConfidence: 0.5,
+      });
+      hands.onResults(onResults);
+      setHandsInstance(hands);
+    }
     const img = new Image();
     img.onload = async () => {
       const canvas = canvasRef.current;
-      if (!canvas) return;
+      if (!canvas || !hands) return;
       canvas.width = img.width;
       canvas.height = img.height;
 
-      await handsInstance.send({ image: img });
+      await hands.send({ image: img });
       setLoading(false);
     };
     img.src = URL.createObjectURL(file);

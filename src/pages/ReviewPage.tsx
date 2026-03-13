@@ -15,7 +15,7 @@ import { watches, reviewArticles } from '../data/watches';
 export default function ReviewPage() {
   const { slug } = useParams<{ slug: string }>();
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   useScrollReveal();
 
   const watch = watches.find((w) => w.slug === slug);
@@ -23,9 +23,11 @@ export default function ReviewPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (watch) {
-      document.title = `${watch.brand} ${watch.name} Review - WristNerd`;
+      document.title = language === 'ar'
+        ? `مراجعة ${watch.brand} ${watch.name} - WristNerd`
+        : `${watch.brand} ${watch.name} Review - WristNerd`;
     }
-  }, [watch, slug]);
+  }, [watch, slug, language]);
 
   if (!watch) {
     return (

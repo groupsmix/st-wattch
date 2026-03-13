@@ -13,13 +13,15 @@ import { bestUnder200 } from '../data/watches';
 
 export default function BestOfPage() {
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   useScrollReveal();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = '7 Best Watches Under $200 in 2026 - WristNerd';
-  }, []);
+    document.title = language === 'ar'
+      ? 'أفضل 7 ساعات تحت 200 دولار في 2026 - WristNerd'
+      : '7 Best Watches Under $200 in 2026 - WristNerd';
+  }, [language]);
 
   const tocItems = [
     { id: 'quick-comparison', title: 'Quick Comparison' },

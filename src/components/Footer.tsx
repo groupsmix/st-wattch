@@ -29,10 +29,15 @@ export default function Footer() {
               {t.footer.description}
             </p>
             <div className="flex gap-3">
-              {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
+              {[
+                { Icon: Facebook, url: 'https://facebook.com/wristnerd' },
+                { Icon: Twitter, url: 'https://twitter.com/wristnerd' },
+                { Icon: Instagram, url: 'https://instagram.com/wristnerd' },
+                { Icon: Youtube, url: 'https://youtube.com/@wristnerd' },
+              ].map(({ Icon, url }, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={url}
                   className={`p-2 rounded-full transition-colors ${
                     theme === 'dark'
                       ? 'bg-dark-card hover:bg-gold/20 text-gray-400 hover:text-gold'
@@ -76,16 +81,21 @@ export default function Footer() {
           <div>
             <h4 className="font-playfair text-lg font-semibold mb-4">{t.footer.categories}</h4>
             <ul className="space-y-2">
-              {['Luxury Watches', 'Dive Watches', 'Dress Watches', 'Smartwatches', 'Chronographs'].map(
-                (cat) => (
-                  <li key={cat}>
+              {[
+                { name: t.footer.luxuryWatches || 'Luxury Watches', path: '/best/watches-under-200' },
+                { name: t.footer.diveWatches || 'Dive Watches', path: '/best/watches-under-200' },
+                { name: t.footer.dressWatches || 'Dress Watches', path: '/best/watches-under-200' },
+                { name: t.footer.smartwatches || 'Smartwatches', path: '/best/watches-under-200' },
+                { name: t.footer.chronographs || 'Chronographs', path: '/best/watches-under-200' },
+              ].map((cat) => (
+                  <li key={cat.name}>
                     <Link
-                      to="/"
+                      to={cat.path}
                       className={`text-sm transition-colors hover:text-gold ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                       }`}
                     >
-                      {cat}
+                      {cat.name}
                     </Link>
                   </li>
                 )
@@ -98,9 +108,9 @@ export default function Footer() {
             <h4 className="font-playfair text-lg font-semibold mb-4">{t.footer.legal}</h4>
             <ul className="space-y-2">
               {[
-                { name: t.footer.privacyPolicy, path: '/affiliate-disclosure' },
+                { name: t.footer.privacyPolicy, path: '/privacy-policy' },
                 { name: t.footer.affiliateDisclosure, path: '/affiliate-disclosure' },
-                { name: t.footer.termsOfService, path: '/affiliate-disclosure' },
+                { name: t.footer.termsOfService, path: '/terms-of-service' },
                 { name: t.footer.contactUs, path: '/about' },
               ].map((link) => (
                 <li key={link.name}>

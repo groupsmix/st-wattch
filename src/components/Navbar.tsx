@@ -1,22 +1,49 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Sun, Moon, ChevronDown, Watch, Globe } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { watches } from '../data/watches';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [searchOpen]);
+
+  const filteredResults = searchQuery.trim().length >= 2
+    ? watches.filter((w) => {
+        const query = searchQuery.toLowerCase();
+        return (
+          w.name.toLowerCase().includes(query) ||
+          w.brand.toLowerCase().includes(query) ||
+          w.category.toLowerCase().includes(query)
+        );
+      })
+    : [];
+
+  const handleSearchSelect = (slug: string) => {
+    setSearchOpen(false);
+    setSearchQuery('');
+    navigate(`/review/${slug}`);
+  };
 
   const navLinks = [
     { name: t.nav.home, path: '/' },
@@ -162,15 +189,74 @@ export default function Navbar() {
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
+                ref={searchInputRef}
                 type="text"
                 placeholder={t.nav.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    setSearchOpen(false);
+                    setSearchQuery('');
+                  }
+                  if (e.key === 'Enter' && filteredResults.length > 0) {
+                    handleSearchSelect(filteredResults[0].slug);
+                  }
+                }}
                 className={`w-full pl-12 pr-4 py-3 rounded-lg border focus:outline-none focus:border-gold transition-colors ${
                   theme === 'dark'
                     ? 'bg-dark-secondary border-dark-border text-white placeholder-gray-500'
                     : 'bg-white border-light-border text-dark placeholder-gray-400'
                 }`}
-                autoFocus
               />
+              {/* Search Results Dropdown */}
+              {filteredResults.length > 0 && (
+                <div
+                  className={`absolute top-full left-0 right-0 mt-2 rounded-lg shadow-xl border overflow-hidden z-50 ${
+                    theme === 'dark'
+                      ? 'bg-dark-secondary border-dark-border'
+                      : 'bg-white border-light-border'
+                  }`}
+                >
+                  {filteredResults.slice(0, 5).map((watch) => (
+                    <button
+                      key={watch.id}
+                      onClick={() => handleSearchSelect(watch.slug)}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
+                        theme === 'dark'
+                          ? 'hover:bg-dark-card'
+                          : 'hover:bg-light-secondary'
+                      }`}
+                    >
+                      <img
+                        src={watch.image}
+                        alt={watch.name}
+                        className="w-10 h-10 rounded-lg object-cover"
+                      />
+                      <div>
+                        <p className={`text-xs ${
+                          theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                        }`}>{watch.brand}</p>
+                        <p className="font-semibold text-sm">{watch.name}</p>
+                      </div>
+                      <span className="ml-auto text-gold font-bold text-sm">
+                        ${watch.price}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {searchQuery.trim().length >= 2 && filteredResults.length === 0 && (
+                <div
+                  className={`absolute top-full left-0 right-0 mt-2 rounded-lg shadow-xl border p-4 text-center text-sm z-50 ${
+                    theme === 'dark'
+                      ? 'bg-dark-secondary border-dark-border text-gray-400'
+                      : 'bg-white border-light-border text-gray-500'
+                  }`}
+                >
+                  No watches found for "{searchQuery}"
+                </div>
+              )}
             </div>
           </div>
         )}

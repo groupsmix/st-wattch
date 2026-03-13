@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 
 export default function TryOnPage() {
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const isDark = theme === 'dark';
 
   useEffect(() => {
-    document.title = 'Virtual Try-On | WristNerd';
+    document.title = language === 'ar' ? 'تجربة افتراضية | WristNerd' : 'Virtual Try-On | WristNerd';
     window.scrollTo(0, 0);
-  }, []);
+  }, [language]);
 
   const watchOptions = watches.map((w) => ({
     id: w.id,

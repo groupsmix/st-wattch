@@ -10,12 +10,14 @@ import { featuredWatches, categories, topSellers, reviewArticles, brands } from 
 
 export default function HomePage() {
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   useScrollReveal();
 
   useEffect(() => {
-    document.title = 'WristNerd - Affordable Watch Reviews & Buyer\'s Guides ($50-$500)';
-  }, []);
+    document.title = language === 'ar'
+      ? 'WristNerd - مراجعات ساعات بأسعار معقولة ودليل المشتري (50-500 دولار)'
+      : 'WristNerd - Affordable Watch Reviews & Buyer\'s Guides ($50-$500)';
+  }, [language]);
 
   return (
     <div>
@@ -103,7 +105,7 @@ export default function HomePage() {
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
-                to="/"
+                to={`/best/watches-under-200`}
                 className={`group relative overflow-hidden rounded-xl aspect-[4/3] ${
                   theme === 'dark' ? 'bg-dark-card' : 'bg-white'
                 }`}

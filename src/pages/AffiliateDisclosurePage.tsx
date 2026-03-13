@@ -7,12 +7,12 @@ import { useLanguage } from '../context/LanguageContext';
 
 export default function AffiliateDisclosurePage() {
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'Affiliate Disclosure - WristNerd';
-  }, []);
+    document.title = language === 'ar' ? 'إفصاح الشراكات - WristNerd' : 'Affiliate Disclosure - WristNerd';
+  }, [language]);
 
   return (
     <div className="pt-24 pb-16">

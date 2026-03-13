@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 
 export default function NewsletterPopup() {
   const [show, setShow] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -60,28 +61,50 @@ export default function NewsletterPopup() {
             Join 10,000+ watch enthusiasts. Get exclusive deals, new reviews, and expert tips delivered weekly.
           </p>
 
-          <form onSubmit={(e) => { e.preventDefault(); dismiss(); }} className="space-y-3">
-            <input
-              type="email"
-              placeholder="Your email address"
-              required
-              className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:border-gold transition-colors ${
-                theme === 'dark'
-                  ? 'bg-dark-card border-dark-border text-white placeholder-gray-500'
-                  : 'bg-light-secondary border-light-border text-dark placeholder-gray-400'
-              }`}
-            />
-            <button
-              type="submit"
-              className="w-full bg-gold hover:bg-gold-light text-dark font-bold py-3 rounded-lg transition-colors"
-            >
-              Subscribe - It's Free
-            </button>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+            if (emailInput && emailInput.value) {
+              localStorage.setItem('wristnerd-newsletter-subscribed', emailInput.value);
+              setSubmitted(true);
+              setTimeout(dismiss, 2000);
+            }
+          }} className="space-y-3">
+            {!submitted ? (
+              <>
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  required
+                  className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:border-gold transition-colors ${
+                    theme === 'dark'
+                      ? 'bg-dark-card border-dark-border text-white placeholder-gray-500'
+                      : 'bg-light-secondary border-light-border text-dark placeholder-gray-400'
+                  }`}
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-gold hover:bg-gold-light text-dark font-bold py-3 rounded-lg transition-colors"
+                >
+                  Subscribe - It's Free
+                </button>
+              </>
+            ) : (
+              <div className="text-center py-4">
+                <p className="text-gold font-semibold text-lg">Thanks for subscribing!</p>
+                <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                  You'll receive our weekly watch deals soon.
+                </p>
+              </div>
+            )}
           </form>
 
-          <p className={`text-xs mt-3 ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}`}>
-            No spam, unsubscribe anytime. We respect your privacy.
-          </p>
+          {!submitted && (
+            <p className={`text-xs mt-3 ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}`}>
+              No spam, unsubscribe anytime. We respect your privacy.
+            </p>
+          )}
         </div>
       </div>
     </div>

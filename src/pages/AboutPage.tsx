@@ -8,13 +8,13 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function AboutPage() {
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   useScrollReveal();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = 'About Us - WristNerd';
-  }, []);
+    document.title = language === 'ar' ? 'من نحن - WristNerd' : 'About Us - WristNerd';
+  }, [language]);
 
   return (
     <div className="pt-24 pb-16">
