@@ -8,7 +8,8 @@ interface WatchCardProps {
   compact?: boolean;
 }
 
-export function WatchCard({ watch, compact }: WatchCardProps) {
+// eslint-disable-next-line react-refresh/only-export-components
+export default function WatchCard({ watch, compact }: WatchCardProps) {
   const { t } = useTheme();
 
   const renderStars = (rating: number) => {
