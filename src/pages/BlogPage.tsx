@@ -210,7 +210,9 @@ export default function BlogPage() {
               </button>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(displayText);
+                  navigator.clipboard.writeText(displayText).catch(() => {
+                    // Clipboard API may fail due to permissions; silently ignore
+                  });
                 }}
                 className={`flex items-center gap-2 font-bold px-6 py-3 rounded-lg border transition-colors ${
                   theme === 'dark'

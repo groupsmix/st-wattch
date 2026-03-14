@@ -14,21 +14,21 @@ export async function generateReviewSummary(
     ? 'أنت خبير ساعات. لخّص المراجعة في 3-4 نقاط رئيسية. اكتب بأسلوب طبيعي وشخصي. بدون markdown.'
     : 'You are a watch expert. Summarize the review in 3-4 key points. Write naturally and personally. No markdown.';
 
+  const reviewExcerpt = watch.fullReview ? watch.fullReview.substring(0, 400) : '';
+
   const prompt = language === 'ar'
     ? `لخّص مراجعة ${watch.brand} ${watch.name} ($${watch.price}):
 المميزات: ${watch.pros.join('، ')}
 العيوب: ${watch.cons.join('، ')}
 التقييم: ${watch.rating}/5
-التصميم: ${watch.reviewContent.designBuild.substring(0, 200)}
-القيمة: ${watch.reviewContent.valueForMoney.substring(0, 200)}
+المراجعة: ${reviewExcerpt}
 
 أعطني ملخص سريع في 3-4 نقاط بأسلوب شخصي ومباشر.`
     : `Summarize this ${watch.brand} ${watch.name} review ($${watch.price}):
 Pros: ${watch.pros.join(', ')}
 Cons: ${watch.cons.join(', ')}
 Rating: ${watch.rating}/5
-Design: ${watch.reviewContent.designBuild.substring(0, 200)}
-Value: ${watch.reviewContent.valueForMoney.substring(0, 200)}
+Review: ${reviewExcerpt}
 
 Give me a quick 3-4 point summary in a personal, direct style.`;
 

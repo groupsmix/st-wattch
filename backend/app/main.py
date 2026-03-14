@@ -1,10 +1,14 @@
+import logging
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import json
 import os
 import re
 from dotenv import load_dotenv
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -267,32 +271,32 @@ def generate_ai_response(system_prompt: str, user_prompt: str, fallback: str) ->
         )
         return response.choices[0].message.content or fallback
     except Exception as e:
-        print(f"AI Error: {e}")
+        logger.warning("AI response generation failed: %s", type(e).__name__)
         return fallback
 
 
 # ============ MODELS ============
 
 class ChatMessage(BaseModel):
-    message: str
-    language: str = "en"
+    message: str = Field(..., max_length=2000)
+    language: str = Field(default="en", pattern="^(en|ar)$")
 
 class CompareRequest(BaseModel):
-    watch1_id: str
-    watch2_id: str
-    language: str = "en"
+    watch1_id: str = Field(..., max_length=100)
+    watch2_id: str = Field(..., max_length=100)
+    language: str = Field(default="en", pattern="^(en|ar)$")
 
 class SummaryRequest(BaseModel):
-    watch_id: str
-    language: str = "en"
+    watch_id: str = Field(..., max_length=100)
+    language: str = Field(default="en", pattern="^(en|ar)$")
 
 class SearchRequest(BaseModel):
-    query: str
-    language: str = "en"
+    query: str = Field(..., max_length=500)
+    language: str = Field(default="en", pattern="^(en|ar)$")
 
 class RecommendationRequest(BaseModel):
-    viewed_watch_ids: list[str]
-    language: str = "en"
+    viewed_watch_ids: list[str] = Field(..., max_length=50)
+    language: str = Field(default="en", pattern="^(en|ar)$")
 
 
 # ============ ENDPOINTS ============
@@ -496,7 +500,7 @@ If no matches: []"""
                 if valid_ids:
                     fallback_ids = valid_ids
         except Exception as e:
-            print(f"AI Search Error: {e}")
+            logger.warning("AI search failed: %s", type(e).__name__)
 
     results = []
     for wid in fallback_ids:

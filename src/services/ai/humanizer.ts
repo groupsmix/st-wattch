@@ -142,8 +142,9 @@ function postProcessEnglish(text: string): string {
   result = result.replace(/\bDo not\b/g, "Don't");
   result = result.replace(/\bcannot\b/g, "can't");
   result = result.replace(/\bwill not\b/g, "won't");
-  result = result.replace(/\bit is\b/g, "it's");
-  result = result.replace(/\bthat is\b/g, "that's");
+  // Only contract "it is" / "that is" when mid-sentence (avoid changing emphatic usage)
+  result = result.replace(/(?<=[,;]\s)\bit is\b/g, "it's");
+  result = result.replace(/(?<=[,;]\s)\bthat is\b/g, "that's");
 
   // Remove markdown artifacts
   result = result.replace(/^#+\s/gm, '');

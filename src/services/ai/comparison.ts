@@ -37,13 +37,13 @@ Write in a natural, conversational style with personal experiences. Structure th
 
 الساعة 1: ${watch1.brand} ${watch1.name}
 السعر: $${watch1.price} | الفئة: ${watch1.category} | التقييم: ${watch1.rating}/5
-المواصفات: ${JSON.stringify(watch1.specs)}
+المواصفات: ${JSON.stringify(watch1.specifications)}
 المميزات: ${watch1.pros.join('، ')}
 العيوب: ${watch1.cons.join('، ')}
 
 الساعة 2: ${watch2.brand} ${watch2.name}
 السعر: $${watch2.price} | الفئة: ${watch2.category} | التقييم: ${watch2.rating}/5
-المواصفات: ${JSON.stringify(watch2.specs)}
+المواصفات: ${JSON.stringify(watch2.specifications)}
 المميزات: ${watch2.pros.join('، ')}
 العيوب: ${watch2.cons.join('، ')}
 
@@ -52,13 +52,13 @@ Write in a natural, conversational style with personal experiences. Structure th
 
 Watch 1: ${watch1.brand} ${watch1.name}
 Price: $${watch1.price} | Category: ${watch1.category} | Rating: ${watch1.rating}/5
-Specs: ${JSON.stringify(watch1.specs)}
+Specs: ${JSON.stringify(watch1.specifications)}
 Pros: ${watch1.pros.join(', ')}
 Cons: ${watch1.cons.join(', ')}
 
 Watch 2: ${watch2.brand} ${watch2.name}
 Price: $${watch2.price} | Category: ${watch2.category} | Rating: ${watch2.rating}/5
-Specs: ${JSON.stringify(watch2.specs)}
+Specs: ${JSON.stringify(watch2.specifications)}
 Pros: ${watch2.pros.join(', ')}
 Cons: ${watch2.cons.join(', ')}
 

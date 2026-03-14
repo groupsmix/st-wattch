@@ -1,6 +1,11 @@
 // AI Configuration - Free tier API keys
 // Gemini Flash: 15 RPM, 1500 req/day (free)
 // Groq (Llama 3.3): 30 RPM, 14400 req/day (free)
+//
+// SECURITY WARNING: VITE_-prefixed env vars are embedded in the client-side
+// JavaScript bundle and visible to anyone inspecting the page source.
+// For production, these API calls should be proxied through the backend
+// to keep API keys server-side only.
 
 export const AI_CONFIG = {
   gemini: {

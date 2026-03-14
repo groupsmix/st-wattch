@@ -1,3 +1,8 @@
+/**
+ * @deprecated Use the Watch type from '../data/types' instead.
+ * This interface is kept for backward compatibility but the canonical
+ * Watch type is defined in src/data/types.ts.
+ */
 export interface Watch {
   id: string;
   name: string;

@@ -1,4 +1,5 @@
 import { Watch } from './types';
+export type { Watch } from './types';
 
 export const watches: Watch[] = [
   {

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type ReactNode } from 'react';
 import { MessageCircle, X, Send, Bot, User, Sparkles } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { watches } from '../data/watches';
@@ -125,19 +125,30 @@ export function ChatBot() {
     }
   };
 
-  // Simple markdown-ish rendering
-  const renderContent = (content: string) => {
-    return content.split('\n').map((line, i) => {
-      let processedLine = line
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/__(.*?)__/g, '<em>$1</em>');
-      return (
-        <span key={i}>
-          <span dangerouslySetInnerHTML={{ __html: processedLine }} />
-          {i < content.split('\n').length - 1 && <br />}
-        </span>
-      );
+  // Safe markdown-ish rendering (no dangerouslySetInnerHTML to prevent XSS)
+  const renderContent = (content: string): ReactNode[] => {
+    const escapeHtml = (text: string) =>
+      text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const lines = content.split('\n');
+    const nodes: ReactNode[] = [];
+    lines.forEach((line, i) => {
+      const escaped = escapeHtml(line);
+      // Handle **bold** and __italic__ markers safely
+      const segments = escaped.split(/(\*\*.*?\*\*|__.*?__)/);
+      segments.forEach((seg, j) => {
+        if (seg.startsWith('**') && seg.endsWith('**')) {
+          nodes.push(<strong key={`${i}-${j}`}>{seg.slice(2, -2)}</strong>);
+        } else if (seg.startsWith('__') && seg.endsWith('__')) {
+          nodes.push(<em key={`${i}-${j}`}>{seg.slice(2, -2)}</em>);
+        } else {
+          nodes.push(<span key={`${i}-${j}`}>{seg}</span>);
+        }
+      });
+      if (i < lines.length - 1) {
+        nodes.push(<br key={`br-${i}`} />);
+      }
     });
+    return nodes;
   };
 
   return (

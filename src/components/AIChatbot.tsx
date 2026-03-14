@@ -1,7 +1,38 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 import { MessageCircle, X, Send, Sparkles, Bot, User } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { apiPost } from "../hooks/useApi";
+
+/** Escape HTML entities to prevent XSS when rendering AI responses */
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/** Render message content safely without dangerouslySetInnerHTML */
+function renderSafeContent(content: string): ReactNode[] {
+  const escaped = escapeHtml(content);
+  const parts = escaped.split(/\n/);
+  const nodes: ReactNode[] = [];
+  parts.forEach((line, i) => {
+    // Convert **bold** markers to <strong> on the escaped string
+    const segments = line.split(/(\*\*.*?\*\*)/);
+    segments.forEach((seg, j) => {
+      if (seg.startsWith('**') && seg.endsWith('**')) {
+        nodes.push(<strong key={`${i}-${j}`}>{seg.slice(2, -2)}</strong>);
+      } else {
+        nodes.push(<span key={`${i}-${j}`}>{seg}</span>);
+      }
+    });
+    if (i < parts.length - 1) {
+      nodes.push(<br key={`br-${i}`} />);
+    }
+  });
+  return nodes;
+}
 
 interface Message {
   role: "user" | "assistant";
@@ -115,11 +146,9 @@ export default function AIChatbot() {
                       ? "bg-gray-800 text-gray-200 rounded-tl-sm"
                       : "bg-white text-gray-800 rounded-tl-sm shadow-sm"
                 }`}>
-                  <div className="whitespace-pre-wrap" dangerouslySetInnerHTML={{
-                    __html: msg.content
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                      .replace(/\n/g, '<br/>')
-                  }} />
+                    <div className="whitespace-pre-wrap">
+                      {renderSafeContent(msg.content)}
+                    </div>
                 </div>
               </div>
             ))}

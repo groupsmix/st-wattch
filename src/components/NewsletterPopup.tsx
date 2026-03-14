@@ -66,7 +66,8 @@ export default function NewsletterPopup() {
             const form = e.target as HTMLFormElement;
             const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
             if (emailInput && emailInput.value) {
-              localStorage.setItem('wristnerd-newsletter-subscribed', emailInput.value);
+              // Store only subscription status, not the email (PII privacy concern)
+              localStorage.setItem('wristnerd-newsletter-subscribed', 'true');
               setSubmitted(true);
               setTimeout(dismiss, 2000);
             }

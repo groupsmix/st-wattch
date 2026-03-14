@@ -18,12 +18,12 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem('wristnerd-theme');
-    return (saved as Theme) || 'dark';
+    return saved === 'light' || saved === 'dark' ? saved : 'dark';
   });
 
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('wristnerd-lang');
-    return (saved as Language) || 'en';
+    return saved === 'en' || saved === 'ar' ? saved : 'en';
   });
 
   useEffect(() => {
