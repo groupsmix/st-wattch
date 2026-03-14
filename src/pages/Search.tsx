@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Sparkles, Loader2, Search as SearchIcon } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { apiPost } from "../hooks/useApi";
-import { Watch } from "../types/watch";
+import { Watch } from "../data/types";
 import WatchCard from "../components/WatchCard";
 
 export default function Search() {

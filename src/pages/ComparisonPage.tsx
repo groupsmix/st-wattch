@@ -16,8 +16,8 @@ export default function ComparisonPage() {
   const { language, t } = useLanguage();
   useScrollReveal();
 
-  const watch1 = watches.find((w) => w.slug === 'seiko-presage-srpd37')!;
-  const watch2 = watches.find((w) => w.slug === 'orient-bambino-v2')!;
+  const watch1 = watches.find((w) => w.id === 'seiko-presage-srpd37')!;
+  const watch2 = watches.find((w) => w.id === 'orient-bambino-v2')!;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -141,7 +141,7 @@ export default function ComparisonPage() {
                 <span className="text-center text-gold">Seiko Presage</span>
                 <span className="text-center text-gold">Orient Bambino</span>
               </div>
-              {Object.keys(watch1.specs).map((key, i) => (
+              {Object.keys(watch1.specifications).map((key, i) => (
                 <div
                   key={key}
                   className={`grid grid-cols-3 px-4 py-3 text-sm ${
@@ -151,8 +151,8 @@ export default function ComparisonPage() {
                   }`}
                 >
                   <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>{key}</span>
-                  <span className="text-center font-medium">{watch1.specs[key]}</span>
-                  <span className="text-center font-medium">{watch2.specs[key] || '-'}</span>
+                  <span className="text-center font-medium">{watch1.specifications[key]}</span>
+                  <span className="text-center font-medium">{watch2.specifications[key] || '-'}</span>
                 </div>
               ))}
             </div>
@@ -185,16 +185,16 @@ export default function ComparisonPage() {
               <div className={`rounded-xl border p-6 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
                 <h3 className="font-playfair text-lg font-bold mb-4 text-center">Seiko Presage SRPD37</h3>
                 <div className="space-y-3">
-                  {watch1.detailedRatings.map((r) => (
-                    <RatingBar key={r.label} label={r.label} score={r.score} />
+                  {comparisonPoints.map((p) => (
+                    <RatingBar key={p.category} label={p.category} score={p.watch1Score} />
                   ))}
                 </div>
               </div>
               <div className={`rounded-xl border p-6 ${theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'}`}>
                 <h3 className="font-playfair text-lg font-bold mb-4 text-center">Orient Bambino V2</h3>
                 <div className="space-y-3">
-                  {watch2.detailedRatings.map((r) => (
-                    <RatingBar key={r.label} label={r.label} score={r.score} />
+                  {comparisonPoints.map((p) => (
+                    <RatingBar key={p.category} label={p.category} score={p.watch2Score} />
                   ))}
                 </div>
               </div>
@@ -277,7 +277,7 @@ export default function ComparisonPage() {
               {[watch1, watch2].map((watch) => (
                 <Link
                   key={watch.id}
-                  to={`/review/${watch.slug}`}
+                  to={`/review/${watch.id}`}
                   className={`flex gap-4 p-4 rounded-xl border transition-all duration-300 hover:border-gold/30 ${
                     theme === 'dark' ? 'bg-dark-card border-dark-border' : 'bg-white border-light-border'
                   }`}

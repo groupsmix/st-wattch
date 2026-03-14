@@ -36,7 +36,7 @@ export default function PersonalizedRecommendations({ currentWatchId }: Props) {
         {recommendations.map((watch) => (
           <Link
             key={watch.id}
-            to={`/review/${watch.slug}`}
+            to={`/review/${watch.id}`}
             className={`group rounded-xl border overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
               theme === 'dark'
                 ? 'bg-dark-card border-dark-border'
@@ -50,9 +50,9 @@ export default function PersonalizedRecommendations({ currentWatchId }: Props) {
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 loading="lazy"
               />
-              {watch.badge && (
+              {watch.bestSeller && (
                 <span className="absolute top-2 left-2 bg-gold/90 text-dark text-xs font-bold px-2 py-1 rounded-full">
-                  {watch.badge}
+                  Best Seller
                 </span>
               )}
             </div>

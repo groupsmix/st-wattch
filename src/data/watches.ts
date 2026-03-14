@@ -647,6 +647,119 @@ export const brands = [
   'Swatch', 'Timex', 'Bulova', 'Fossil',
 ];
 
+export interface BestOfWatch {
+  rank: number;
+  name: string;
+  brand: string;
+  image: string;
+  bestFeature: string;
+  rating: number;
+  price: string;
+  affiliateUrl: string;
+  description: string;
+  pros: string[];
+  cons: string[];
+  slug?: string;
+}
+
+export const bestUnder200: BestOfWatch[] = [
+  {
+    rank: 1,
+    name: 'Orient Bambino Version 2',
+    brand: 'Orient',
+    image: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&h=600&fit=crop',
+    bestFeature: 'Best Dress Watch',
+    rating: 4.7,
+    price: '$168',
+    affiliateUrl: 'https://www.amazon.com',
+    description: 'The Orient Bambino Version 2 is widely considered the best dress watch under $200. It features an in-house automatic movement, a beautifully domed mineral crystal, and a classic design that rivals watches costing several times more.',
+    pros: ['In-house automatic movement', 'Stunning domed crystal', 'Classic timeless design', 'Excellent finishing for the price'],
+    cons: ['Only 30m water resistance', 'No hacking or hand-winding', 'Leather strap could be better'],
+    slug: 'orient-bambino-v2',
+  },
+  {
+    rank: 2,
+    name: 'Casio G-Shock GA-2100-1A',
+    brand: 'Casio',
+    image: 'https://images.unsplash.com/photo-1623998021446-45cd9b269c95?w=600&h=600&fit=crop',
+    bestFeature: 'Best Sports Watch',
+    rating: 4.4,
+    price: '$99',
+    affiliateUrl: 'https://www.amazon.com',
+    description: 'The "CasiOak" is the slimmest G-Shock ever made with an octagonal bezel design inspired by luxury sports watches. At under $100, it offers 200m water resistance and legendary G-Shock durability.',
+    pros: ['Incredibly affordable', 'Slim for a G-Shock (11.8mm)', '200m water resistance + shock proof', 'Stylish octagonal design'],
+    cons: ['Mineral crystal scratches easier', 'Digital display hard to read', 'No solar or Bluetooth'],
+    slug: 'casio-gshock-ga2100',
+  },
+  {
+    rank: 3,
+    name: 'Citizen Promaster Diver BN0151',
+    brand: 'Citizen',
+    image: 'https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600&h=600&fit=crop',
+    bestFeature: 'Best Solar Diver',
+    rating: 4.3,
+    price: '$150',
+    affiliateUrl: 'https://www.amazon.com',
+    description: 'The Citizen Promaster Eco-Drive is a solar-powered dive watch that never needs a battery change. With 200m water resistance and ISO certification, it is a legitimate tool watch at an incredible price.',
+    pros: ['Eco-Drive solar - never needs battery', '200m water resistance', 'ISO certified diver', 'Very affordable'],
+    cons: ['Mineral crystal', 'Polyurethane strap feels cheap', 'Basic finishing'],
+    slug: 'citizen-promaster-bn0151',
+  },
+  {
+    rank: 4,
+    name: 'Casio Duro MDV-106',
+    brand: 'Casio',
+    image: 'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=600&h=600&fit=crop',
+    bestFeature: 'Best Budget Diver',
+    rating: 4.2,
+    price: '$55',
+    affiliateUrl: 'https://www.amazon.com',
+    description: 'The Casio Duro is the ultimate budget dive watch. At around $55, you get 200m water resistance, a unidirectional bezel, and a design that Bill Gates himself wears. It is the best value in the entire watch market.',
+    pros: ['Insanely affordable', '200m water resistance', 'Worn by Bill Gates', 'Reliable quartz movement'],
+    cons: ['Mineral crystal', 'Resin strap is basic', 'No lume on bezel', 'Quartz only'],
+  },
+  {
+    rank: 5,
+    name: 'Timex Marlin Automatic',
+    brand: 'Timex',
+    image: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=600&h=600&fit=crop',
+    bestFeature: 'Best Retro Style',
+    rating: 4.1,
+    price: '$189',
+    affiliateUrl: 'https://www.amazon.com',
+    description: 'The Timex Marlin Automatic is a reissue of the classic 1960s Marlin. With its 40mm case, automatic movement, and retro-inspired design, it brings vintage charm at a modern price point.',
+    pros: ['Beautiful retro design', 'Automatic movement', 'Exhibition caseback', 'Perfect 40mm size'],
+    cons: ['Only 30m water resistance', 'Acrylic crystal', 'Miyota movement (not in-house)'],
+  },
+  {
+    rank: 6,
+    name: 'Orient Ray II',
+    brand: 'Orient',
+    image: 'https://images.unsplash.com/photo-1548171915-e79a380a2a4b?w=600&h=600&fit=crop',
+    bestFeature: 'Best Auto Diver',
+    rating: 4.4,
+    price: '$165',
+    affiliateUrl: 'https://www.amazon.com',
+    description: 'The Orient Ray II is an exceptional automatic dive watch with 200m water resistance, an in-house F6922 movement with hacking and hand-winding, and a solid stainless steel bracelet.',
+    pros: ['In-house automatic movement', 'Hand-winding and hacking', '200m water resistance', 'Solid bracelet'],
+    cons: ['Mineral crystal (not sapphire)', 'Bezel action could be better', 'Slightly thick at 13mm'],
+  },
+  {
+    rank: 7,
+    name: 'Seiko 5 Sports SRPD55',
+    brand: 'Seiko',
+    image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?w=600&h=600&fit=crop',
+    bestFeature: 'Best Everyday Auto',
+    rating: 4.3,
+    price: '$185',
+    affiliateUrl: 'https://www.amazon.com',
+    description: 'The new Seiko 5 Sports continues the legacy of affordable, reliable automatic watches. With day-date display, 100m water resistance, and the proven 4R36 movement, it is perfect as a first automatic watch.',
+    pros: ['Reliable 4R36 movement', 'Day-date display', '100m water resistance', 'Great lume'],
+    cons: ['Hardlex crystal', 'Bracelet clasp is basic', '42.5mm may be large for some'],
+    slug: 'seiko-5-sports-srpd',
+  },
+];
+
 export function getWatchById(id: string): Watch | undefined {
   return watches.find(w => w.id === id);
 }

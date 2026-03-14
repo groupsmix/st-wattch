@@ -228,14 +228,14 @@ export default function AIComparisonPage() {
                   <td className="px-4 py-2 text-center text-sm">{watch1.rating}/5</td>
                   <td className="px-4 py-2 text-center text-sm">{watch2.rating}/5</td>
                 </tr>
-                {Object.keys(watch1.specs).map((key, i) => (
+                {Object.keys(watch1.specifications).map((key, i) => (
                   <tr key={key} className={i % 2 === 0
                     ? theme === 'dark' ? 'bg-dark-card' : 'bg-white'
                     : theme === 'dark' ? 'bg-dark-secondary' : 'bg-light-secondary'
                   }>
                     <td className={`px-4 py-2 text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>{key}</td>
-                    <td className="px-4 py-2 text-center text-xs">{watch1.specs[key] || '-'}</td>
-                    <td className="px-4 py-2 text-center text-xs">{watch2.specs[key] || '-'}</td>
+                    <td className="px-4 py-2 text-center text-xs">{watch1.specifications[key] || '-'}</td>
+                    <td className="px-4 py-2 text-center text-xs">{watch2.specifications[key] || '-'}</td>
                   </tr>
                 ))}
               </tbody>

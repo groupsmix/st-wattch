@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles, Watch as WatchIcon, Shield, Cpu, Star } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { apiFetch } from "../hooks/useApi";
-import { Watch } from "../types/watch";
+import { Watch } from "../data/types";
 import WatchCard from "../components/WatchCard";
 import Recommendations from "../components/Recommendations";
 
@@ -43,7 +43,7 @@ export default function Home() {
   const categories = [
     { id: "dive", label: t("cat_dive"), emoji: "🤿", count: watches.filter(w => w.category === "dive").length },
     { id: "dress", label: t("cat_dress"), emoji: "👔", count: watches.filter(w => w.category === "dress").length },
-    { id: "sport", label: t("cat_sport"), emoji: "🏃", count: watches.filter(w => w.category === "sport").length },
+    { id: "sports", label: t("cat_sport"), emoji: "🏃", count: watches.filter(w => w.category === "sports").length },
     { id: "field", label: t("cat_field"), emoji: "🏕️", count: watches.filter(w => w.category === "field").length },
     { id: "luxury", label: t("cat_luxury"), emoji: "💎", count: watches.filter(w => w.category === "luxury").length },
   ];

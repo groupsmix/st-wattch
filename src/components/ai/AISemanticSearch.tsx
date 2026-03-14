@@ -26,7 +26,7 @@ export default function AISemanticSearch({ onClose }: Props) {
     setIsLoading(true);
 
     const watchList = watches.map(w =>
-      `ID:${w.slug} | ${w.brand} ${w.name} | $${w.price} | ${w.category} | ${w.rating}/5 | Water: ${w.specs['Water Resistance'] || 'N/A'} | ${w.shortDescription}`
+      `ID:${w.id} | ${w.brand} ${w.name} | $${w.price} | ${w.category} | ${w.rating}/5 | Water: ${w.specifications['Water Resistance'] || 'N/A'} | ${w.shortDescription}`
     ).join('\n');
 
     const systemPrompt = language === 'ar'
@@ -62,8 +62,8 @@ export default function AISemanticSearch({ onClose }: Props) {
     }
     // Also try to find watch slugs mentioned in text
     watches.forEach(w => {
-      if (text.toLowerCase().includes(w.slug) || text.toLowerCase().includes(w.name.toLowerCase())) {
-        if (!slugs.includes(w.slug)) slugs.push(w.slug);
+      if (text.toLowerCase().includes(w.id) || text.toLowerCase().includes(w.name.toLowerCase())) {
+        if (!slugs.includes(w.id)) slugs.push(w.id);
       }
     });
     return slugs;
@@ -117,7 +117,7 @@ export default function AISemanticSearch({ onClose }: Props) {
       {results && extractSlugs(results).length > 0 && (
         <div className="flex flex-wrap gap-2">
           {extractSlugs(results).map(slug => {
-            const w = watches.find(w => w.slug === slug);
+            const w = watches.find(w => w.id === slug);
             if (!w) return null;
             return (
               <button

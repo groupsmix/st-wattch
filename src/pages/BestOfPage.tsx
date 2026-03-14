@@ -9,7 +9,7 @@ import TableOfContents from '../components/TableOfContents';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { bestUnder200 } from '../data/watches';
+import { bestUnder200, BestOfWatch } from '../data/watches';
 
 export default function BestOfPage() {
   const { theme } = useTheme();
@@ -25,7 +25,7 @@ export default function BestOfPage() {
 
   const tocItems = [
     { id: 'quick-comparison', title: 'Quick Comparison' },
-    ...bestUnder200.map((w) => ({
+    ...bestUnder200.map((w: BestOfWatch) => ({
       id: `watch-${w.rank}`,
       title: `${w.rank}. ${w.name}`,
     })),
@@ -119,7 +119,7 @@ export default function BestOfPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {bestUnder200.map((watch, i) => (
+                  {bestUnder200.map((watch: BestOfWatch, i: number) => (
                     <tr
                       key={watch.rank}
                       className={
@@ -165,7 +165,7 @@ export default function BestOfPage() {
           </section>
 
           {/* Individual Watch Reviews */}
-          {bestUnder200.map((watch) => (
+          {bestUnder200.map((watch: BestOfWatch) => (
             <section
               key={watch.rank}
               id={`watch-${watch.rank}`}
@@ -207,7 +207,7 @@ export default function BestOfPage() {
                       <div className="mb-4">
                         <h4 className="text-sm font-semibold text-green-400 mb-2">{t.review.pros}</h4>
                         <ul className="space-y-1">
-                          {watch.pros.map((pro, i) => (
+                          {watch.pros.map((pro: string, i: number) => (
                             <li key={i} className={`text-sm flex items-start gap-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                               <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
                               {pro}
@@ -219,7 +219,7 @@ export default function BestOfPage() {
                       <div className="mb-6">
                         <h4 className="text-sm font-semibold text-red-400 mb-2">{t.review.cons}</h4>
                         <ul className="space-y-1">
-                          {watch.cons.map((con, i) => (
+                          {watch.cons.map((con: string, i: number) => (
                             <li key={i} className={`text-sm flex items-start gap-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                               <XIcon className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
                               {con}
