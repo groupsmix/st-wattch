@@ -231,4 +231,139 @@ export const translations = {
   },
 } as const;
 
-export type TranslationKey = typeof translations.en;
+export type Language = 'en' | 'ar';
+
+const flatTranslations: Record<Language, Record<string, string>> = {
+  en: {
+    // Hero
+    hero_ai_badge: 'AI-Powered',
+    hero_title: translations.en.hero.title,
+    hero_subtitle: translations.en.hero.description,
+    hero_cta: translations.en.hero.cta,
+    // Categories
+    cat_title: translations.en.home.categories,
+    cat_dive: translations.en.categories.dive,
+    cat_dress: translations.en.categories.dress,
+    cat_sport: translations.en.categories.sports,
+    cat_field: translations.en.categories.field,
+    cat_luxury: translations.en.categories.luxury,
+    cat_all: translations.en.categories.all,
+    categories_all: translations.en.categories.all,
+    categories_filter: translations.en.search.filters,
+    categories_sort: translations.en.search.sortBy,
+    nav_categories: translations.en.nav.categories,
+    // Sort
+    sort_rating: translations.en.search.rating,
+    sort_price_low: 'Price: Low to High',
+    sort_price_high: 'Price: High to Low',
+    sort_name: translations.en.search.name,
+    // Compare
+    compare_title: translations.en.compare.title,
+    compare_subtitle: translations.en.compare.subtitle,
+    compare_select1: 'Select First Watch',
+    compare_select2: 'Select Second Watch',
+    compare_vs: translations.en.compare.vs,
+    compare_loading: 'Comparing...',
+    compare_btn: 'Compare Now',
+    // Not Found
+    not_found_title: translations.en.common.notFound,
+    not_found_desc: translations.en.common.notFoundDesc,
+    not_found_btn: translations.en.common.backToHome,
+    // Search
+    search_ai_powered: 'AI-Powered Search',
+    search_results: translations.en.search.title,
+    search_no_results: translations.en.search.noResults,
+    // Detail
+    detail_back: 'Back to Watches',
+    detail_movement: 'Movement',
+    detail_case: 'Case Diameter',
+    detail_water: 'Water Resistance',
+    detail_crystal: 'Crystal',
+    detail_material: 'Case Material',
+    detail_bracelet: 'Bracelet',
+    detail_power: 'Power Reserve',
+    detail_amazon: 'Buy on Amazon',
+    detail_jomashop: 'Buy on Jomashop',
+    detail_ai_summary: translations.en.review.aiSummary,
+    detail_loading_summary: 'Generating summary...',
+    detail_ai_summary_btn: 'Generate AI Summary',
+    detail_specs: translations.en.review.specifications,
+    detail_pros: translations.en.review.pros,
+    detail_cons: translations.en.review.cons,
+    // Chat
+    chat_welcome: translations.en.chatbot.greeting,
+    chat_title: translations.en.chatbot.title,
+    chat_subtitle: translations.en.chatbot.subtitle,
+    chat_placeholder: translations.en.chatbot.placeholder,
+    // Recommendations
+    rec_title: 'Recommended for You',
+  },
+  ar: {
+    // Hero
+    hero_ai_badge: 'مدعوم بالذكاء الاصطناعي',
+    hero_title: translations.ar.hero.title,
+    hero_subtitle: translations.ar.hero.description,
+    hero_cta: translations.ar.hero.cta,
+    // Categories
+    cat_title: translations.ar.home.categories,
+    cat_dive: translations.ar.categories.dive,
+    cat_dress: translations.ar.categories.dress,
+    cat_sport: translations.ar.categories.sports,
+    cat_field: translations.ar.categories.field,
+    cat_luxury: translations.ar.categories.luxury,
+    cat_all: translations.ar.categories.all,
+    categories_all: translations.ar.categories.all,
+    categories_filter: translations.ar.search.filters,
+    categories_sort: translations.ar.search.sortBy,
+    nav_categories: translations.ar.nav.categories,
+    // Sort
+    sort_rating: translations.ar.search.rating,
+    sort_price_low: 'السعر: من الأقل للأعلى',
+    sort_price_high: 'السعر: من الأعلى للأقل',
+    sort_name: translations.ar.search.name,
+    // Compare
+    compare_title: translations.ar.compare.title,
+    compare_subtitle: translations.ar.compare.subtitle,
+    compare_select1: 'اختر الساعة الأولى',
+    compare_select2: 'اختر الساعة الثانية',
+    compare_vs: translations.ar.compare.vs,
+    compare_loading: 'جارٍ المقارنة...',
+    compare_btn: 'قارن الآن',
+    // Not Found
+    not_found_title: translations.ar.common.notFound,
+    not_found_desc: translations.ar.common.notFoundDesc,
+    not_found_btn: translations.ar.common.backToHome,
+    // Search
+    search_ai_powered: 'بحث بالذكاء الاصطناعي',
+    search_results: translations.ar.search.title,
+    search_no_results: translations.ar.search.noResults,
+    // Detail
+    detail_back: 'العودة للساعات',
+    detail_movement: 'الحركة',
+    detail_case: 'قطر العلبة',
+    detail_water: 'مقاومة الماء',
+    detail_crystal: 'الزجاج',
+    detail_material: 'مادة العلبة',
+    detail_bracelet: 'السوار',
+    detail_power: 'احتياطي الطاقة',
+    detail_amazon: 'شراء من أمازون',
+    detail_jomashop: 'شراء من جوماشوب',
+    detail_ai_summary: translations.ar.review.aiSummary,
+    detail_loading_summary: 'جارٍ توليد الملخص...',
+    detail_ai_summary_btn: 'توليد ملخص ذكي',
+    detail_specs: translations.ar.review.specifications,
+    detail_pros: translations.ar.review.pros,
+    detail_cons: translations.ar.review.cons,
+    // Chat
+    chat_welcome: translations.ar.chatbot.greeting,
+    chat_title: translations.ar.chatbot.title,
+    chat_subtitle: translations.ar.chatbot.subtitle,
+    chat_placeholder: translations.ar.chatbot.placeholder,
+    // Recommendations
+    rec_title: 'موصى به لك',
+  },
+};
+
+export { flatTranslations };
+
+export type TranslationKey = keyof typeof flatTranslations.en;

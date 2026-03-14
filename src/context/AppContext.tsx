@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { Language, translations, TranslationKey } from "../data/translations";
+import { Language, flatTranslations, TranslationKey } from "../data/translations";
 
 interface AppContextType {
   theme: "dark" | "light";
@@ -51,7 +51,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const toggleTheme = () => setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   const toggleLanguage = () => setLanguage((prev) => (prev === "en" ? "ar" : "en"));
-  const t = (key: TranslationKey) => translations[language][key] || key;
+  const t = (key: TranslationKey) => flatTranslations[language][key] || key;
   const isRtl = language === "ar";
 
   const addViewedWatch = (id: string) => {

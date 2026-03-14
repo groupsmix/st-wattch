@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Star, ExternalLink, ChevronRight, Check, X as XIcon, Sparkles } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { getWatchById, watches } from '../data/watches';
-import { WatchCard } from '../components/WatchCard';
+import WatchCard from '../components/WatchCard';
 import { useState } from 'react';
 
 export function ReviewPage() {

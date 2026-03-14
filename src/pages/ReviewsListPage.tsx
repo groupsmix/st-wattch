@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { WatchCard } from '../components/WatchCard';
+import WatchCard from '../components/WatchCard';
 import { useTheme } from '../context/ThemeContext';
 import { watches } from '../data/watches';
 import { SlidersHorizontal, ChevronDown } from 'lucide-react';

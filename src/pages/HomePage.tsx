@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChevronRight, Anchor, Watch as WatchIcon, Crown, Plane, Compass, Timer, Zap, Coffee } from 'lucide-react';
 import { Hero } from '../components/Hero';
-import { WatchCard } from '../components/WatchCard';
+import WatchCard from '../components/WatchCard';
 import { Newsletter } from '../components/Newsletter';
 import { BrandMarquee } from '../components/BrandMarquee';
 import { useTheme } from '../context/ThemeContext';

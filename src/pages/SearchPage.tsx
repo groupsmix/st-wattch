@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { WatchCard } from '../components/WatchCard';
+import WatchCard from '../components/WatchCard';
 import { useTheme } from '../context/ThemeContext';
 import { searchWatches } from '../data/watches';
 import { Search } from 'lucide-react';

@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { WatchCard } from '../components/WatchCard';
+import WatchCard from '../components/WatchCard';
 import { useTheme } from '../context/ThemeContext';
 import { getWatchesByCategory, watches } from '../data/watches';
 import { Anchor, Watch as WatchIcon, Crown, Plane, Compass, Timer, Zap, Coffee, ChevronRight } from 'lucide-react';
