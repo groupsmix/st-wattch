@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import { useApp } from "../context/AppContext";
 import { apiPost } from "../hooks/useApi";
-import { Watch } from "../types/watch";
+import { Watch } from "../data/types";
 import WatchCard from "./WatchCard";
 
 export default function Recommendations() {
